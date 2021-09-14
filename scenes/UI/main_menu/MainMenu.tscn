@@ -1,0 +1,195 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/UI/MM_BG.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/PNG/blue_button03.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/PNG/blue_button05.png" type="Texture" id=5]
+[ext_resource path="res://resources/KFN_40_1.tres" type="DynamicFont" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "buttons"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer/VBox/PlayButton:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 255 ), Vector2( 75, 255 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MarginContainer/VBox/Settings:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 365 ), Vector2( 75, 365 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MarginContainer/VBox/About:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 475 ), Vector2( 75, 475 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MarginContainer/VBox/Quit:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 650 ), Vector2( 75, 650 ) ]
+}
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 1370.0
+margin_top = 50.0
+margin_right = 1870.0
+margin_bottom = 1030.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 8
+custom_constants/separation = 35
+alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="MarginContainer/VBox"]
+margin_left = 75.0
+margin_top = 255.0
+margin_right = 425.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 350, 75 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/PlayButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+text = "Play"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="TextureButton" parent="MarginContainer/VBox"]
+margin_left = 75.0
+margin_top = 365.0
+margin_right = 425.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 350, 75 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+text = "Settings"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="About" type="TextureButton" parent="MarginContainer/VBox"]
+margin_left = 75.0
+margin_top = 475.0
+margin_right = 425.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 350, 75 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/About"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+text = "About"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="MarginContainer/VBox"]
+margin_top = 585.0
+margin_right = 500.0
+margin_bottom = 615.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="Quit" type="TextureButton" parent="MarginContainer/VBox"]
+margin_left = 75.0
+margin_top = 650.0
+margin_right = 425.0
+margin_bottom = 725.0
+rect_min_size = Vector2( 350, 75 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="MarginContainer/VBox/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+text = "Quit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/buttons = SubResource( 1 )

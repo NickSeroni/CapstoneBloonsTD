@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/UI/tower_buttons/TowerButton.gd" type="Script" id=1]
+[ext_resource path="res://Assets/TowerDefensePack/GunT1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/PNG/blue_button12.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 15
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.447059 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "price_tag_slide"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("PriceTag:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 12, 0 ), Vector2( 78, 0 ) ]
+}
+
+[node name="TowerButton" type="TextureButton" groups=[
+"build_buttons",
+]]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 90.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 3 )
+expand = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+rect_pivot_offset = Vector2( 31, 31 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriceTag" type="Panel" parent="."]
+show_behind_parent = true
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -68.0
+margin_right = -10.0001
+margin_bottom = 27.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PriceTag"]
+modulate = Color( 0.92549, 0.890196, 0.0431373, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 21.0
+margin_bottom = 9.0
+custom_fonts/font = SubResource( 1 )
+text = "$150"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/price_tag_slide = SubResource( 2 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_TowerButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_TowerButton_mouse_exited"]
