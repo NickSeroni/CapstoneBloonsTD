@@ -1,60 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/UI/MM_BG.png" type="Texture" id=3]
-[ext_resource path="res://Assets/UI/PNG/blue_button03.png" type="Texture" id=4]
-[ext_resource path="res://Assets/UI/PNG/blue_button05.png" type="Texture" id=5]
 [ext_resource path="res://resources/KFN_40_1.tres" type="DynamicFont" id=6]
 
-[sub_resource type="Animation" id=1]
-resource_name = "buttons"
-tracks/0/type = "value"
-tracks/0/path = NodePath("MarginContainer/VBox/PlayButton:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 600, 255 ), Vector2( 75, 255 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MarginContainer/VBox/Settings:rect_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 600, 365 ), Vector2( 75, 365 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("MarginContainer/VBox/About:rect_position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 600, 475 ), Vector2( 75, 475 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("MarginContainer/VBox/Quit:rect_position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 600, 650 ), Vector2( 75, 650 ) ]
-}
+[sub_resource type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Animation" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -63,11 +16,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 3 )
-expand = true
+color = Color( 0.0901961, 0.0980392, 0.141176, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -75,6 +27,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -89.0
 custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
@@ -84,48 +37,51 @@ __meta__ = {
 }
 
 [node name="VBox" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 1370.0
-margin_top = 50.0
-margin_right = 1870.0
-margin_bottom = 1030.0
+margin_left = 710.0
+margin_top = 531.0
+margin_right = 1210.0
+margin_bottom = 941.0
 rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 8
-custom_constants/separation = 35
+size_flags_horizontal = 4
+size_flags_vertical = 12
+custom_constants/separation = 15
 alignment = 1
 
-[node name="PlayButton" type="TextureButton" parent="MarginContainer/VBox"]
+[node name="PlayButton" type="Button" parent="MarginContainer/VBox"]
 margin_left = 75.0
-margin_top = 255.0
 margin_right = 425.0
-margin_bottom = 330.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 350, 75 )
 size_flags_horizontal = 4
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
+flat = true
 
 [node name="Label" type="Label" parent="MarginContainer/VBox/PlayButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.5
+margin_top = -37.5
+margin_right = 174.5
+margin_bottom = 37.5
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
-text = "Play"
+text = "Level select"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="TextureButton" parent="MarginContainer/VBox"]
+[node name="Settings" type="Button" parent="MarginContainer/VBox"]
+material = SubResource( 2 )
 margin_left = 75.0
-margin_top = 365.0
+margin_top = 90.0
 margin_right = 425.0
-margin_bottom = 440.0
+margin_bottom = 165.0
 rect_min_size = Vector2( 350, 75 )
 size_flags_horizontal = 4
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
+flat = true
 
 [node name="Label" type="Label" parent="MarginContainer/VBox/Settings"]
 anchor_right = 1.0
@@ -139,20 +95,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="About" type="TextureButton" parent="MarginContainer/VBox"]
+[node name="About" type="Button" parent="MarginContainer/VBox"]
+material = SubResource( 2 )
 margin_left = 75.0
-margin_top = 475.0
+margin_top = 180.0
 margin_right = 425.0
-margin_bottom = 550.0
+margin_bottom = 255.0
 rect_min_size = Vector2( 350, 75 )
 size_flags_horizontal = 4
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
+flat = true
 
 [node name="Label" type="Label" parent="MarginContainer/VBox/About"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.25989
+margin_right = 1.25989
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
 text = "About"
@@ -162,22 +119,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="MarginContainer/VBox"]
-margin_top = 585.0
+[node name="Spacer" type="Control" parent="MarginContainer/VBox"]
+margin_top = 270.0
 margin_right = 500.0
-margin_bottom = 615.0
-rect_min_size = Vector2( 0, 30 )
+margin_bottom = 320.0
+rect_min_size = Vector2( 0, 50 )
 
-[node name="Quit" type="TextureButton" parent="MarginContainer/VBox"]
+[node name="Quit" type="Button" parent="MarginContainer/VBox"]
+material = SubResource( 2 )
 margin_left = 75.0
-margin_top = 650.0
+margin_top = 335.0
 margin_right = 425.0
-margin_bottom = 725.0
+margin_bottom = 410.0
 rect_min_size = Vector2( 350, 75 )
 size_flags_horizontal = 4
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
+flat = true
 
 [node name="Label" type="Label" parent="MarginContainer/VBox/Quit"]
 anchor_right = 1.0
@@ -192,4 +148,4 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/buttons = SubResource( 1 )
+anims/buttons = SubResource( 3 )
