@@ -1,8 +1,10 @@
 extends Node2D
 
-signal wave_updated(count)
+signal round_updated(count)
 signal lives_updated(count)
 signal money_updated(count)
+signal wave_updated(number)
+signal round_ended
 
 var balloon := load("res://scenes/balloons/Balloon.tscn")
 
@@ -15,20 +17,24 @@ var build_location: Vector2
 var build_type : String
 
 var current_wave := 0
-var balloons_in_wave := 0
+var current_round := 0
 
-var money := 250
 var lives := 100
+var money := 300
 
 
 func _ready() -> void:
+	emit_signal("lives_updated", lives)
+	emit_signal("money_updated", money)
+	emit_signal("round_updated", current_round)
+	
+	connect("round_ended", self, "start_next_round")
+	
 	map_node = $MapContainer.get_child(0)
 	balloon_path_area = map_node.get_node("BalloonPathArea")
 	
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
-	
-	start_next_wave()
 
 
 func _process(delta: float) -> void:
@@ -45,11 +51,6 @@ func _unhandled_input(event) -> void:
 	
 	if event.is_action_released("toggle_ui_visible"):
 		$UI/HUD.set_visible(!$UI/HUD.visible)
-	
-	if event.is_action_pressed("ui_cancel") and build_mode == false:
-		get_tree().paused = true
-		var pause_menu = load("res://scenes/UI/pause_menu/PauseMenu.tscn").instance()
-		$UI.add_child(pause_menu)
 
 
 func initiate_build_mode(tower_type: String) -> void:
@@ -87,41 +88,48 @@ func cancel_build_mode() -> void:
 func verify_and_build() -> void:
 	if build_valid:
 		# Check if player has enough money
-		
-		var new_tower = load("res://scenes/towers/" + build_type + ".tscn").instance()
-		new_tower.position = build_location
-		new_tower.name += "_"
-		map_node.get_node("Towers").add_child(new_tower, true)
-		
-		# Deduct money
-		# Update money label
-		
-		# Cancel build mode only after tower is placed or manually cancelled
-		cancel_build_mode()
+		if GameData.tower_data[build_type]["price"] <= money:
+			var new_tower = load("res://scenes/towers/" + build_type + ".tscn").instance()
+			new_tower.position = build_location
+			new_tower.built = true
+			new_tower.type = build_type
+			new_tower.name += "_"
+			map_node.get_node("Towers").add_child(new_tower, true)
+			
+			# Deduct money
+			# Update money label
+			money -= GameData.tower_data[build_type]["price"]
+			emit_signal("money_updated", money)
+			
+			# Cancel build mode only after tower is placed or manually cancelled
+			cancel_build_mode()
+		else:
+			print("not enough money")
 
 
-func start_next_wave() -> void:
-	var wave_data = retrieve_wave_data()
-	# Padding between waves
-	yield(get_tree().create_timer(0.2), "timeout")
-	spawn_balloons(wave_data)
-
-
-func retrieve_wave_data() -> Array:
-	var wave_data = [["Red", 0.7], ["Red", 0.1],["Red", 0.7], ["Blue", 0.1],["Blue", 0.7], ["Red", 0.1]]
-	current_wave += 1
-	emit_signal("wave_updated", current_wave)
-	balloons_in_wave = wave_data.size()
-	return wave_data
+func start_next_round() -> void:
+	current_round += 1
+	emit_signal("round_updated", current_round)
+	var new_round = Round.new(current_round)
+	# Padding between rounds
+	yield(get_tree().create_timer(1), "timeout")
+	spawn_balloons(new_round.wave_array)
 
 
 func spawn_balloons(wave_data: Array) -> void:
+	# loop through every wave, then spawn a balloon for each count
+	var c := 0
 	for i in wave_data:
-		var new_balloon = balloon.instance()
-		new_balloon.type = i[0]
-		new_balloon.connect("end_reached", self, "_on_balloon_end_reached")
-		map_node.get_node("BalloonPath").add_child(new_balloon, true)
-		yield(get_tree().create_timer(i[1]), "timeout")
+		c += 1
+		for w in range(i["count"]):
+			var new_balloon = balloon.instance()
+			new_balloon.type = i["type"]
+			new_balloon.connect("end_reached", self, "_on_balloon_end_reached")
+			new_balloon.connect("popped", self, "_on_balloon_poppped")
+			map_node.get_node("BalloonPath").add_child(new_balloon, true)
+			yield(get_tree().create_timer(0.5), "timeout") # spawn time padding
+		if c == wave_data.size():
+			emit_signal("round_ended")
 
 
 func _on_balloon_end_reached():
@@ -129,23 +137,9 @@ func _on_balloon_end_reached():
 	emit_signal("lives_updated", lives)
 
 
-func _on_PausePlayButton_toggled(button_pressed: bool):
-	# Pause the balloons
-	if button_pressed:
-		var play_icon = load("res://Assets/UI/icons/Game icons (base)/PNG/White/1x/forward.png")
-		$UI/HUD/SpeedControls/PausePlayButton.icon = play_icon
-		get_tree().paused = button_pressed
-	# Resume the balloons
-	else:
-		var pause_icon = load("res://Assets/UI/icons/Game icons (base)/PNG/White/1x/pause.png")
-		$UI/HUD/SpeedControls/PausePlayButton.icon = pause_icon
-		get_tree().paused = button_pressed
-
-
-func _on_FastButton_toggled(button_pressed: bool):
-	pass
-
-
+func _on_balloon_poppped(value):
+	money += value
+	emit_signal("money_updated", money)
 
 
 

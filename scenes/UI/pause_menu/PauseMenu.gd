@@ -16,13 +16,16 @@ func _ready():
 	close_menu_button.connect("button_down", self, "_on_CloseMenuButton_button_down")
 	close_menu_button.connect("button_up", self, "_on_CloseMenuButton_button_up")
 	
+	$CenterContainer/ColorRect/VBoxContainer/ExitToMainButton.connect("pressed", self, "_on_ExitToMainButton_pressed")
+	
 	$CenterContainer/ColorRect/VBoxContainer/QuitButton.connect("pressed", self, "_on_QuitButton_pressed")
 
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel") && get_tree().paused == true:
+	if event.is_action_pressed("ui_cancel"):
 		get_tree().set_input_as_handled()
-		get_tree().paused = false
+		if get_parent().pause_button_active:
+			get_tree().paused = false
 		queue_free()
 
 
@@ -38,6 +41,16 @@ func _on_CloseMenuButton_button_up():
 	if get_tree().paused == true:
 		get_tree().paused = false
 	
+	queue_free()
+
+
+func _on_ExitToMainButton_pressed():
+	var main_menu = load("res://scenes/UI/main_menu/MainMenu.tscn").instance()
+	var scene_handler = get_tree().root.get_node("SceneHandler")
+	scene_handler.get_node("GameScene").queue_free()
+	scene_handler.add_child(main_menu)
+	scene_handler.connect_signals()
+	get_tree().paused = false
 	queue_free()
 
 

@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/TowerDefenseMap01.png" type="Texture" id=2]
+[ext_resource path="res://scenes/UI/level_select/LevelSelectButton.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 38
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.447059 )
+font_data = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect"]
+margin_right = 640.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 640, 360 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 5.0
+margin_bottom = 44.0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -86.4126
+margin_top = 5.20941
+margin_right = 89.5874
+margin_bottom = 49.2094
+rect_min_size = Vector2( 30, 10 )
+custom_fonts/font = SubResource( 1 )
+text = "Plains 1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

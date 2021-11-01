@@ -1,14 +1,21 @@
+class_name Bullet
 extends Area2D
 
-
-var target = null
+var lifetime: float = 0.3
+var target = null setget set_target
 var speed
 var velocity := Vector2.ZERO
 var direction := Vector2.ZERO
+# number of balloons this bullet can pop before freeing
+var pen := 0
+# number of balloons popped
+onready var pop_count := 0
 
 
 func _ready() -> void:
 	connect("area_entered", self, "_on_area_entered")
+	$LifetimeTimer.connect("timeout", self, "_on_LifetimeTimer_timeout")
+	$LifetimeTimer.start(lifetime)
 	add_to_group(Groups.BULLETS)
 	
 	if target.get_ref():
@@ -16,11 +23,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta) -> void:
-	if target.get_ref():
-		velocity = direction * speed
-		global_position += velocity * delta
-	else:
-		queue_free()
+	velocity = direction * speed
+	global_position += velocity * delta
+	
 
 
 func set_target(new_target) -> void:
@@ -29,6 +34,11 @@ func set_target(new_target) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group(Groups.BALLOONS):
-		if area.get_parent() == target.get_ref():
-			area.get_parent().apply_damage()
-		queue_free()
+		area.get_parent().apply_damage()
+		pop_count += 1
+		if pop_count >= pen:
+			queue_free()
+
+
+func _on_LifetimeTimer_timeout() -> void:
+	queue_free()

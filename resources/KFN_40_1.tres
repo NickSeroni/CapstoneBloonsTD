@@ -3,7 +3,8 @@
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 40
+resource_local_to_scene = true
+size = 42
 outline_size = 1
 outline_color = Color( 0, 0, 0, 0.447059 )
 font_data = ExtResource( 1 )

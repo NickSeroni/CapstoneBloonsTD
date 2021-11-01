@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/UI/tower_buttons/TowerButton.gd" type="Script" id=1]
-[ext_resource path="res://Assets/TowerDefensePack/GunT1.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/PNG/blue_button12.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=4]
 
@@ -44,7 +43,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -52,7 +51,6 @@ margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
 rect_pivot_offset = Vector2( 31, 31 )
-texture = ExtResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

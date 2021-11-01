@@ -19,3 +19,6 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0415878, -8.59685 )
 shape = SubResource( 1 )
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+one_shot = true
