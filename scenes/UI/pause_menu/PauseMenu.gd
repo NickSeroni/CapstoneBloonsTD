@@ -55,5 +55,4 @@ func _on_ExitToMainButton_pressed():
 
 
 func _on_QuitButton_pressed():
-	print("quit pressed")
 	get_tree().quit()

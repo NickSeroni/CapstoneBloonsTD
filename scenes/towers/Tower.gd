@@ -128,7 +128,7 @@ func _on_FireRadius_area_exited(area: Area2D) -> void:
 
 
 func shoot() -> void:
-	var bullet_instance :Bullet = bullet.instance()
+	var bullet_instance: Bullet = bullet.instance()
 	bullet_instance.pen = bullet_pen
 	bullet_instance.set_target(target)
 	bullet_instance.speed = bullet_speed

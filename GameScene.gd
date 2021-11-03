@@ -3,10 +3,10 @@ extends Node2D
 signal round_updated(count)
 signal lives_updated(count)
 signal money_updated(count)
-signal wave_updated(number)
+#signal wave_updated(number)
 signal round_ended
 
-var balloon := load("res://scenes/balloons/Balloon.tscn")
+var balloon := preload("res://scenes/balloons/Balloon.tscn")
 
 var map_node : Node2D
 var balloon_path_area : Area2D
@@ -16,8 +16,8 @@ var build_valid := false
 var build_location: Vector2
 var build_type : String
 
-var current_wave := 0
 var current_round := 0
+var is_round_ended := true
 
 var lives := 100
 var money := 300
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 
 # Catches input not caught by UI already
 func _unhandled_input(event) -> void:
-	if event.is_action_released("ui_cancel") and build_mode == true:
+	if event.is_action_released("build_cancel") and build_mode == true:
 		cancel_build_mode()
 	if event.is_action_released("ui_accept") and build_mode == true:
 		verify_and_build()
@@ -121,19 +121,24 @@ func spawn_balloons(wave_data: Array) -> void:
 	var c := 0
 	for i in wave_data:
 		c += 1
-		for w in range(i["count"]):
+		for _w in range(i["count"]):
 			var new_balloon = balloon.instance()
 			new_balloon.type = i["type"]
-			new_balloon.connect("end_reached", self, "_on_balloon_end_reached")
-			new_balloon.connect("popped", self, "_on_balloon_poppped")
+			connect_balloon_signals(new_balloon)
 			map_node.get_node("BalloonPath").add_child(new_balloon, true)
 			yield(get_tree().create_timer(0.5), "timeout") # spawn time padding
 		if c == wave_data.size():
 			emit_signal("round_ended")
 
 
-func _on_balloon_end_reached():
-	lives -= 1
+func connect_balloon_signals(b: Balloon):
+	b.connect("end_reached", self, "_on_balloon_end_reached")
+	b.connect("popped", self, "_on_balloon_poppped")
+	b.connect("child_spawned", self, "_on_BalloonChildSpawned")
+
+
+func _on_balloon_end_reached(damage: int):
+	lives -= damage
 	emit_signal("lives_updated", lives)
 
 
@@ -142,7 +147,8 @@ func _on_balloon_poppped(value):
 	emit_signal("money_updated", money)
 
 
-
+func _on_BalloonChildSpawned(balloon: WeakRef):
+	connect_balloon_signals(balloon.get_ref())
 
 
 

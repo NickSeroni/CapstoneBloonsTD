@@ -25,7 +25,6 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	velocity = direction * speed
 	global_position += velocity * delta
-	
 
 
 func set_target(new_target) -> void:
@@ -34,7 +33,7 @@ func set_target(new_target) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group(Groups.BALLOONS):
-		area.get_parent().apply_damage()
+		area.get_parent().pop()
 		pop_count += 1
 		if pop_count >= pen:
 			queue_free()
