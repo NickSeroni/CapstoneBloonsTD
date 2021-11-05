@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://scenes/UI/main_menu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/KFN_40_1.tres" type="DynamicFont" id=6]
 
 [sub_resource type="Shader" id=1]
@@ -12,6 +13,7 @@ shader = SubResource( 1 )
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,6 +54,7 @@ margin_left = 75.0
 margin_right = 425.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 350, 75 )
+focus_neighbour_top = NodePath("../Quit")
 size_flags_horizontal = 4
 flat = true
 
@@ -64,8 +67,8 @@ margin_left = -174.5
 margin_top = -37.5
 margin_right = 174.5
 margin_bottom = 37.5
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+custom_fonts/font = ExtResource( 6 )
 text = "Level select"
 align = 1
 valign = 1
@@ -86,8 +89,8 @@ flat = true
 [node name="Label" type="Label" parent="MarginContainer/VBox/Settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+custom_fonts/font = ExtResource( 6 )
 text = "Settings"
 align = 1
 valign = 1
@@ -110,8 +113,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.25989
 margin_right = 1.25989
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+custom_fonts/font = ExtResource( 6 )
 text = "About"
 align = 1
 valign = 1
@@ -132,14 +135,15 @@ margin_top = 335.0
 margin_right = 425.0
 margin_bottom = 410.0
 rect_min_size = Vector2( 350, 75 )
+focus_neighbour_bottom = NodePath("../PlayButton")
 size_flags_horizontal = 4
 flat = true
 
 [node name="Label" type="Label" parent="MarginContainer/VBox/Quit"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.658824 )
+custom_fonts/font = ExtResource( 6 )
 text = "Quit"
 align = 1
 valign = 1

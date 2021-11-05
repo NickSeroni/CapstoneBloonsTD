@@ -34,7 +34,6 @@ func _ready() -> void:
 	fire_radius_area.connect("area_exited", self, "_on_FireRadius_area_exited")
 	
 	# Initialize the object variables based on hardcoded meta data
-	damage = GameData.tower_data[type]["damage"]
 	rof = GameData.tower_data[type]["rof"]
 	radius = GameData.tower_data[type]["radius"]
 	splash = GameData.tower_data[type]["splash"]
@@ -72,8 +71,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if targets_array.size() > 0 && built:
 		acquire_target()
-		turn()
 		if can_shoot:
+			turn()
 			shoot()
 	else:
 		target = null
@@ -145,10 +144,6 @@ func shoot() -> void:
 # Each timeout is one shot fired
 func _on_FireRateTimer_timeout() -> void:
 	can_shoot = true
-
-
-
-
 
 
 

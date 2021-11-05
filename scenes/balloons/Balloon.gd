@@ -41,10 +41,6 @@ func _ready() -> void:
 		child_enable_timer.start()
 	
 	$Sprite.modulate = color
-	
-	lead = PathFollow2D.new()
-	lead.name = name + "Lead"
-	get_parent().add_child(lead)
 
 
 func _physics_process(delta: float) -> void:

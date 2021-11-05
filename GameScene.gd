@@ -3,8 +3,6 @@ extends Node2D
 signal round_updated(count)
 signal lives_updated(count)
 signal money_updated(count)
-#signal wave_updated(number)
-signal round_ended
 
 var balloon := preload("res://scenes/balloons/Balloon.tscn")
 
@@ -27,8 +25,6 @@ func _ready() -> void:
 	emit_signal("lives_updated", lives)
 	emit_signal("money_updated", money)
 	emit_signal("round_updated", current_round)
-	
-	connect("round_ended", self, "start_next_round")
 	
 	map_node = $MapContainer.get_child(0)
 	balloon_path_area = map_node.get_node("BalloonPathArea")
@@ -107,6 +103,7 @@ func verify_and_build() -> void:
 			print("not enough money")
 
 
+# Next round should start when all balloons are popped from previous round
 func start_next_round() -> void:
 	current_round += 1
 	emit_signal("round_updated", current_round)
@@ -127,8 +124,6 @@ func spawn_balloons(wave_data: Array) -> void:
 			connect_balloon_signals(new_balloon)
 			map_node.get_node("BalloonPath").add_child(new_balloon, true)
 			yield(get_tree().create_timer(0.5), "timeout") # spawn time padding
-		if c == wave_data.size():
-			emit_signal("round_ended")
 
 
 func connect_balloon_signals(b: Balloon):
@@ -137,14 +132,24 @@ func connect_balloon_signals(b: Balloon):
 	b.connect("child_spawned", self, "_on_BalloonChildSpawned")
 
 
+# check if all balloons are freed from the level 
+# either by popping or reaching the end to start the next round
+func check_balloons_cleared():
+	yield(get_tree(), "idle_frame")
+	if $MapContainer.get_child(0).get_node("BalloonPath").get_children().empty():
+		start_next_round()
+
+
 func _on_balloon_end_reached(damage: int):
 	lives -= damage
 	emit_signal("lives_updated", lives)
+	check_balloons_cleared()
 
 
 func _on_balloon_poppped(value):
 	money += value
 	emit_signal("money_updated", money)
+	check_balloons_cleared()
 
 
 func _on_BalloonChildSpawned(balloon: WeakRef):

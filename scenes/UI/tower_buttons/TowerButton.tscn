@@ -27,9 +27,7 @@ tracks/0/keys = {
 "values": [ Vector2( 12, 0 ), Vector2( 78, 0 ) ]
 }
 
-[node name="TowerButton" type="TextureButton" groups=[
-"build_buttons",
-]]
+[node name="TowerButton" type="TextureButton" groups=["build_buttons"]]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 90.0

@@ -65,12 +65,12 @@ func _on_round_updated(new_round_number):
 
 
 func _on_lives_updated(count):
-	$HUD/HealthLabel.text = String(count)
+	$HUD/HMGridContainer/HealthLabel.text = String(count)
 
 
 func _on_money_updated(count):
 	#print("money: " + String(count))
-	$HUD/MoneyLabel.text = String(count)
+	$HUD/HMGridContainer/MoneyLabel.text = String(count)
 
 
 func _on_PausePlayButton_toggled(button_pressed: bool):

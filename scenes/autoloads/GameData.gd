@@ -3,9 +3,8 @@ extends Node
 
 var tower_data = {
 	"GunT1": {
-		"damage": 20,
 		"rof": 1,
-		"radius": 150,
+		"radius": 100,
 		"splash": false,
 		"bullet": "res://scenes/bullets/Bullet.tscn",
 		"bullet_speed": 800,
@@ -13,7 +12,6 @@ var tower_data = {
 		"pen": 2
 	},
 	"MissleT1": {
-		"damage": 100,
 		"rof": 1,
 		"radius": 150,
 		"splash": true,
@@ -34,7 +32,7 @@ var balloon_data = {
 	"Blue": {
 		"child": "Red",
 		"color": Color.blue,
-		"speed": 200,
+		"speed": 120,
 		"value": 10,
 		"damage": 2
 	}
