@@ -2,4 +2,5 @@ extends Control
 
 
 func _ready() -> void:
-	$MarginContainer/VBox/PlayButton.grab_focus()
+	#$MarginContainer/VBox/PlayButton.grab_focus()
+	pass

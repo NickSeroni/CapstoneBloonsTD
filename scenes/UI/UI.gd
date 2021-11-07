@@ -1,13 +1,24 @@
 extends CanvasLayer
 
+var is_pause_button_active := false
+var is_tower_ui_active := false
 
-var pause_button_active := false
+onready var current_tower: Tower
+
+onready var tower_stats := $HUD/TowerStats
+onready var type_label := tower_stats.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/TypeLabel")
+onready var tier_label := tower_stats.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/TierLabel")
+onready var rof_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/ROFLabel")
+onready var pen_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PenLabel")
+onready var pops_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PopCountLabel")
 
 
 func _ready():
 	get_parent().connect("round_updated", self, "_on_round_updated")
 	get_parent().connect("lives_updated", self, "_on_lives_updated")
 	get_parent().connect("money_updated", self, "_on_money_updated")
+	
+	$HUD/TowerStats.visible = false
 
 
 func _unhandled_input(event):
@@ -56,8 +67,26 @@ func update_tower_preview_color(color: String) -> void:
 
 
 func toggle_pause():
-	if pause_button_active:
+	if is_pause_button_active:
 		get_tree().paused = true
+
+
+# If tower UI is active, then that tower should show its radius
+# and the stats should show that tower's stats
+# if another tower is clicked while the tower stats are open then
+# the previous tower's radius disappears and the new tower's appears
+# and the stats reflects the new tower's stats
+
+# Called from GameScene when a tower is clicked or the tower's stats are updated
+# while the UI is active
+func update_tower_stats(t: Tower) -> void:
+	current_tower = t
+	
+	type_label.text = t.type
+	tier_label.text = t.tier
+	rof_label.text = "ROF: " + String(t.rof)
+	pen_label.text = "Pen: " + String(t.bullet_pen)
+	pops_label.text = "Pops: " + String(t.pop_count)
 
 
 func _on_round_updated(new_round_number):
@@ -77,15 +106,16 @@ func _on_PausePlayButton_toggled(button_pressed: bool):
 	if button_pressed:
 		var pause_icon = load("res://assets/UI/icons/Game icons (base)/PNG/White/1x/pause.png")
 		$HUD/SpeedControls/PausePlayButton.icon = pause_icon
-		pause_button_active = true
+		is_pause_button_active = true
 		get_tree().paused = false
 		
 		if get_parent().current_round == 0:
 			get_parent().start_next_round()
 	else:
+		# paused
 		var play_icon = load("res://assets/UI/icons/Game icons (base)/PNG/White/1x/forward.png")
 		$HUD/SpeedControls/PausePlayButton.icon = play_icon
-		pause_button_active = false
+		is_pause_button_active = false
 		get_tree().paused = true
 
 

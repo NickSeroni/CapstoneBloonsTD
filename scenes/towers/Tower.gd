@@ -1,4 +1,8 @@
+class_name Tower
 extends Node2D
+
+signal tower_clicked(tower)
+signal stats_changed(tower)
 
 onready var shoot_positions := get_node("Turret/ShootPositions")
 onready var fire_radius_area := get_node("FireRadius")
@@ -7,7 +11,7 @@ onready var fire_rate_timer := Timer.new()
 onready var range_texture : Sprite
 
 var type   : String
-var damage : int
+var tier   : String
 var rof    : float
 var radius : int
 var splash : bool
@@ -24,7 +28,6 @@ var bullet
 var shoot_position_array : Array
 var can_shoot := true
 # UI
-var is_ui_active := false
 var pop_count : int
 
 
@@ -43,6 +46,7 @@ func _ready() -> void:
 	
 	if shot_type != "":
 		bullet = load(shot_type)
+	# Where the bullets spawn from
 	shoot_position_array = shoot_positions.get_children()
 	
 	# Set the fire radius size and add the texture as a child
@@ -99,15 +103,26 @@ func get_farthest_balloon() -> PathFollow2D:
 	return retval
 
 
+func shoot() -> void:
+	var bullet_instance: Bullet = bullet.instance()
+	bullet_instance.pen = bullet_pen
+	bullet_instance.set_target(target)
+	bullet_instance.speed = bullet_speed
+	bullet_instance.transform = shoot_position_array[0].global_transform
+	bullet_instance.rotation = $Turret.global_rotation
+	bullet_instance.parent = self
+	get_tree().get_root().get_node("SceneHandler/GameScene/BulletContainer").add_child(bullet_instance)
+	
+	can_shoot = false
+	fire_rate_timer.start()
+	
+	#print(name + " shot at " + target.name)
+
+
 # Enables tower GUI on mouse click
 func _on_OverlapArea_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_released("select") and time_active.is_stopped():
-		if is_ui_active == false:
-			is_ui_active = true
-			range_texture.show()
-		else:
-			is_ui_active = false
-			range_texture.hide()
+		emit_signal("tower_clicked", self)
 
 
 func _on_FireRadius_area_entered(area: Area2D) -> void:
@@ -126,26 +141,9 @@ func _on_FireRadius_area_exited(area: Area2D) -> void:
 		targets_array.erase(balloon)
 
 
-func shoot() -> void:
-	var bullet_instance: Bullet = bullet.instance()
-	bullet_instance.pen = bullet_pen
-	bullet_instance.set_target(target)
-	bullet_instance.speed = bullet_speed
-	bullet_instance.transform = shoot_position_array[0].global_transform
-	bullet_instance.rotation = $Turret.global_rotation
-	get_tree().get_root().get_node("SceneHandler/GameScene/BulletContainer").add_child(bullet_instance)
-	
-	can_shoot = false
-	fire_rate_timer.start()
-	
-	#print(name + " shot at " + target.name)
-
-
 # Each timeout is one shot fired
 func _on_FireRateTimer_timeout() -> void:
 	can_shoot = true
-
-
 
 
 

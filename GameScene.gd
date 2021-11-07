@@ -18,7 +18,7 @@ var current_round := 0
 var is_round_ended := true
 
 var lives := 100
-var money := 300
+var money := 400
 
 
 func _ready() -> void:
@@ -85,11 +85,13 @@ func verify_and_build() -> void:
 	if build_valid:
 		# Check if player has enough money
 		if GameData.tower_data[build_type]["price"] <= money:
-			var new_tower = load("res://scenes/towers/" + build_type + ".tscn").instance()
+			var new_tower: Tower = load("res://scenes/towers/" + build_type + ".tscn").instance()
 			new_tower.position = build_location
 			new_tower.built = true
 			new_tower.type = build_type
 			new_tower.name += "_"
+			new_tower.connect("tower_clicked", self, "_on_TowerClicked")
+			new_tower.connect("stats_changed", self, "_on_Tower_stats_changed")
 			map_node.get_node("Towers").add_child(new_tower, true)
 			
 			# Deduct money
@@ -156,10 +158,24 @@ func _on_BalloonChildSpawned(balloon: WeakRef):
 	connect_balloon_signals(balloon.get_ref())
 
 
+# Recieves the tower that has been clicked
+# Sets the tower UI based on that tower's stats
+func _on_TowerClicked(t: Tower) -> void:
+	if t == $UI.current_tower and $UI/HUD/TowerStats.visible:
+		$UI/HUD/TowerStats.visible = false
+		t.range_texture.hide()
+		$UI.current_tower = null
+	else:
+		$UI/HUD/TowerStats.visible = true
+		if $UI.current_tower:
+			$UI.current_tower.range_texture.hide()
+		t.range_texture.show()
+		$UI.update_tower_stats(t)
 
 
-
-
+func _on_Tower_stats_changed(t: Tower) -> void:
+	if $UI/HUD/TowerStats.visible && $UI.current_tower == t:
+		$UI.update_tower_stats(t)
 
 
 

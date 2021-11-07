@@ -1,6 +1,8 @@
 class_name Bullet
 extends Area2D
 
+var parent
+
 var lifetime: float = 0.3
 var target = null setget set_target
 var speed
@@ -35,6 +37,8 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group(Groups.BALLOONS):
 		area.get_parent().pop()
 		pop_count += 1
+		parent.pop_count += 1
+		parent.emit_signal("stats_changed", parent)
 		if pop_count >= pen:
 			queue_free()
 

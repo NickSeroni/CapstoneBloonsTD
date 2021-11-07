@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Round",
 "language": "GDScript",
 "path": "res://resources/Round.gd"
+}, {
+"base": "Node2D",
+"class": "Tower",
+"language": "GDScript",
+"path": "res://scenes/towers/Tower.gd"
 } ]
 _global_script_class_icons={
 "Balloon": "",
 "Bullet": "",
-"Round": ""
+"Round": "",
+"Tower": ""
 }
 
 [application]
