@@ -96,8 +96,7 @@ func verify_and_build() -> void:
 			
 			# Deduct money
 			# Update money label
-			money -= GameData.tower_data[build_type]["price"]
-			emit_signal("money_updated", money)
+			add_money(-1 * new_tower.price)
 			
 			# Cancel build mode only after tower is placed or manually cancelled
 			cancel_build_mode()
@@ -142,6 +141,11 @@ func check_balloons_cleared():
 		start_next_round()
 
 
+func add_money(value: int) -> void:
+	money += value
+	emit_signal("money_updated", money)
+
+
 func _on_balloon_end_reached(damage: int):
 	lives -= damage
 	emit_signal("lives_updated", lives)
@@ -149,8 +153,7 @@ func _on_balloon_end_reached(damage: int):
 
 
 func _on_balloon_poppped(value):
-	money += value
-	emit_signal("money_updated", money)
+	add_money(value)
 	check_balloons_cleared()
 
 

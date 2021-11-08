@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/1x/forward.png" type="Texture" id=2]
@@ -103,6 +103,17 @@ corner_radius_bottom_left = 5
 [sub_resource type="Theme" id=16]
 Button/styles/hover = SubResource( 14 )
 Button/styles/normal = SubResource( 15 )
+
+[sub_resource type="DynamicFont" id=20]
+resource_local_to_scene = true
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.447059 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=21]
+Label/colors/font_color = Color( 1, 0.905882, 0.298039, 1 )
+Label/fonts/font = SubResource( 20 )
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 5 )
@@ -350,20 +361,20 @@ text = "Pops: 0"
 
 [node name="Spacer2" type="Control" parent="UI/HUD/TowerStats/HBoxContainer"]
 margin_left = 477.0
-margin_right = 657.0
+margin_right = 667.0
 margin_bottom = 130.0
-rect_min_size = Vector2( 180, 0 )
+rect_min_size = Vector2( 190, 0 )
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_left = 661.0
-margin_right = 811.0
+[node name="ButtonContainer" type="VBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer"]
+margin_left = 671.0
+margin_right = 821.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 150, 0 )
 theme = SubResource( 10 )
 custom_constants/separation = 10
 alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer2"]
+[node name="UpgradeButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/ButtonContainer"]
 margin_top = 10.0
 margin_right = 150.0
 margin_bottom = 60.0
@@ -371,13 +382,41 @@ rect_min_size = Vector2( 0, 50 )
 theme = SubResource( 13 )
 text = "Upgrade"
 
-[node name="SellButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer2"]
+[node name="SellButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/ButtonContainer"]
 margin_top = 70.0
 margin_right = 150.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 0, 50 )
 theme = SubResource( 16 )
 text = "Sell"
+
+[node name="PricesContainer" type="VBoxContainer" parent="UI/HUD/TowerStats"]
+anchor_left = 0.679106
+anchor_top = 0.200647
+anchor_right = 0.786106
+anchor_bottom = 0.813647
+margin_left = -0.100037
+margin_top = -3.8147e-06
+margin_right = 5.59998
+margin_bottom = 0.0499878
+theme = SubResource( 21 )
+custom_constants/separation = 40
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="UpgradePriceLabel" type="Label" parent="UI/HUD/TowerStats/PricesContainer"]
+margin_right = 102.0
+margin_bottom = 23.0
+text = "$300"
+align = 1
+
+[node name="SellPriceLabel" type="Label" parent="UI/HUD/TowerStats/PricesContainer"]
+margin_top = 63.0
+margin_right = 102.0
+margin_bottom = 86.0
+text = "$50"
+align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD"]
 

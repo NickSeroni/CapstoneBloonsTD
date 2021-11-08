@@ -26,15 +26,22 @@ var balloon_data = {
 	"Red": {
 		"color": Color.red,
 		"speed": 100,
-		"value": 5,
+		"value": 1,
 		"damage": 1
 	},
 	"Blue": {
 		"child": "Red",
 		"color": Color.blue,
 		"speed": 120,
-		"value": 10,
+		"value": 2,
 		"damage": 2
+	},
+	"Green": {
+		"child": "Blue",
+		"color": Color.green,
+		"speed": 140,
+		"value": 3,
+		"damage": 3
 	}
 }
 
@@ -68,7 +75,59 @@ var wave_data = {
 			"type": "Red",
 			"count": 20
 		},
-	]
+	],
+	4: [
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Blue",
+			"count": 10
+		},
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Blue",
+			"count": 10
+		},
+		{
+			"type": "Red",
+			"count": 20
+		},
+	],
+	5: [
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Blue",
+			"count": 10
+		},
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Blue",
+			"count": 10
+		},
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Green",
+			"count": 10
+		},
+		{
+			"type": "Blue",
+			"count": 20
+		},
+	],
 }
 
 # Iterating through the array yields the key to the level dictionary

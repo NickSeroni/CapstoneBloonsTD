@@ -14,6 +14,8 @@ var type   : String
 var tier   : String
 var rof    : float
 var radius : int
+var price  : int
+var sell_price : int
 var splash : bool
 var shot_type : String
 var bullet_speed : int
@@ -39,6 +41,8 @@ func _ready() -> void:
 	# Initialize the object variables based on hardcoded meta data
 	rof = GameData.tower_data[type]["rof"]
 	radius = GameData.tower_data[type]["radius"]
+	price = GameData.tower_data[type]["price"]
+	sell_price = price / 4
 	splash = GameData.tower_data[type]["splash"]
 	shot_type = GameData.tower_data[type]["bullet"]
 	bullet_speed = GameData.tower_data[type]["bullet_speed"]

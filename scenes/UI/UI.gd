@@ -11,12 +11,18 @@ onready var tier_label := tower_stats.get_node("HBoxContainer/VBoxContainer/HBox
 onready var rof_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/ROFLabel")
 onready var pen_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PenLabel")
 onready var pops_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PopCountLabel")
+onready var upgrade_price_label := tower_stats.get_node("PricesContainer/UpgradePriceLabel")
+onready var sell_price_label := tower_stats.get_node("PricesContainer/SellPriceLabel")
+onready var upgrade_button := tower_stats.get_node("HBoxContainer/ButtonContainer/UpgradeButton")
+onready var sell_button := tower_stats.get_node("HBoxContainer/ButtonContainer/SellButton")
 
 
 func _ready():
 	get_parent().connect("round_updated", self, "_on_round_updated")
 	get_parent().connect("lives_updated", self, "_on_lives_updated")
 	get_parent().connect("money_updated", self, "_on_money_updated")
+	
+	sell_button.connect("pressed", self, "_on_SellButton_pressed")
 	
 	$HUD/TowerStats.visible = false
 
@@ -87,6 +93,8 @@ func update_tower_stats(t: Tower) -> void:
 	rof_label.text = "ROF: " + String(t.rof)
 	pen_label.text = "Pen: " + String(t.bullet_pen)
 	pops_label.text = "Pops: " + String(t.pop_count)
+	upgrade_price_label.text = "$" + String(t.price)
+	sell_price_label.text = "$" + String(t.sell_price)
 
 
 func _on_round_updated(new_round_number):
@@ -126,18 +134,26 @@ func _on_FastButton_toggled(button_pressed):
 	else:
 		Engine.set_time_scale(1.0)
 		$HUD/SpeedControls/FastButton.modulate = Color("646464")
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+func _on_SellButton_pressed() -> void:
+	get_parent().add_money(current_tower.sell_price)
+	current_tower.call_deferred("queue_free")
+	current_tower = null
+	tower_stats.visible = false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
