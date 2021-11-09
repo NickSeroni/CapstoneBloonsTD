@@ -67,6 +67,7 @@ func _ready() -> void:
 	
 	# Create and add a RateOfFire Timer node
 	fire_rate_timer.connect("timeout", self, "_on_FireRateTimer_timeout")
+	fire_rate_timer.wait_time = rof
 	add_child(fire_rate_timer)
 	
 	# Makes sure the tower UI doesnt activate when spawned in on click

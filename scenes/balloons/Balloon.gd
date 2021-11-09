@@ -5,11 +5,6 @@ signal end_reached(damage)
 signal popped
 signal child_spawned(balloon)
 
-var path: Node
-var path_points: Array
-var path_index := 0
-var lead: PathFollow2D
-
 var type: String
 var color
 var speed: int

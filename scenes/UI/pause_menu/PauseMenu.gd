@@ -1,6 +1,7 @@
 # This is pause menu. While this is on the screen, the game will be paused
 # except for this scene, which will continue processing.
 # The game is unpaused when the menu is closed
+class_name PauseMenu
 extends Control
 
 var audio_enabled_icon = preload("res://Assets/UI/icons/Game icons (base)/PNG/White/1x/audioOn.png")
@@ -24,7 +25,7 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().set_input_as_handled()
-		if get_parent().pause_button_active:
+		if get_parent().is_pause_button_active:
 			get_tree().paused = false
 		queue_free()
 

@@ -3,7 +3,7 @@ extends Node
 
 var tower_data = {
 	"GunT1": {
-		"rof": 1,
+		"rof": 1.5,
 		"radius": 100,
 		"splash": false,
 		"bullet": "res://scenes/bullets/Bullet.tscn",
@@ -39,9 +39,33 @@ var balloon_data = {
 	"Green": {
 		"child": "Blue",
 		"color": Color.green,
-		"speed": 140,
+		"speed": 160,
 		"value": 3,
 		"damage": 3
+	},
+	"Yellow": {
+		"child": "Green",
+		"color": Color.yellow,
+		"speed": 200,
+		"value": 4,
+		"damage": 4
+	}
+}
+
+# Iterating through the array yields the key to the level dictionary
+var levelArray = [
+	"Plains",
+	"Winterland",
+]
+
+var levelDict = {
+	"Plains": {
+		"img": "res://assets/TowerDefenseMap01.png",
+		"scene": "res://scenes/levels/level01/Level01.tscn",
+	},
+	"Winterland": {
+		"img": "res://assets/winter-map.png",
+		"scene": "res://scenes/levels/winterland/Winterland.tscn"
 	}
 }
 
@@ -55,93 +79,183 @@ var wave_data = {
 	2: [
 		{
 			"type": "Red",
-			"count": 20
+			"count": 35
 		},
-		{
-			"type": "Blue",
-			"count": 5
-		}
 	],
 	3: [
 		{
 			"type": "Red",
-			"count": 20
+			"count": 25
 		},
 		{
 			"type": "Blue",
-			"count": 10
-		},
-		{
-			"type": "Red",
-			"count": 20
+			"count": 5
 		},
 	],
 	4: [
 		{
 			"type": "Red",
-			"count": 20
+			"count": 35
 		},
 		{
 			"type": "Blue",
-			"count": 10
-		},
-		{
-			"type": "Red",
-			"count": 20
-		},
-		{
-			"type": "Blue",
-			"count": 10
-		},
-		{
-			"type": "Red",
-			"count": 20
+			"count": 18
 		},
 	],
 	5: [
 		{
 			"type": "Red",
-			"count": 20
+			"count": 5
 		},
 		{
 			"type": "Blue",
-			"count": 10
+			"count": 27
 		},
+	],
+	6: [
+		{
+			"type": "Red",
+			"count": 15
+		},
+		{
+			"type": "Blue",
+			"count": 15
+		},
+		{
+			"type": "Green",
+			"count": 4
+		}
+	],
+	7: [
 		{
 			"type": "Red",
 			"count": 20
 		},
 		{
 			"type": "Blue",
+			"count": 20
+		},
+		{
+			"type": "Green",
+			"count": 5
+		}
+	],
+	8: [
+		{
+			"type": "Red",
 			"count": 10
 		},
 		{
-			"type": "Red",
+			"type": "Blue",
 			"count": 20
+		},
+		{
+			"type": "Green",
+			"count": 14
+		}
+	],
+	9: [
+		{
+			"type": "Green",
+			"count": 30
+		}
+	],
+	10: [
+		{
+			"type": "Blue",
+			"count": 102
+		}
+	],
+	11: [
+		{
+			"type": "Red",
+			"count": 10
+		},
+		{
+			"type": "Blue",
+			"count": 10
+		},
+		{
+			"type": "Green",
+			"count": 12
+		},
+		{
+			"type": "Yellow",
+			"count": 3
+		},
+	],
+	12: [
+		{
+			"type": "Blue",
+			"count": 15
 		},
 		{
 			"type": "Green",
 			"count": 10
 		},
 		{
-			"type": "Blue",
-			"count": 20
+			"type": "Yellow",
+			"count": 5
 		},
 	],
-}
-
-# Iterating through the array yields the key to the level dictionary
-var levelArray = [
-	"Plains",
-	"Plains",
-	"Plains",
-	"Plains",
-	
-]
-
-var levelDict = {
-	"Plains": {
-		"img": "res://assets/TowerDefenseMap01.png",
-		"scene": "res://scenes/levels/level01/Level01.tscn",
-	},
+	13: [
+		{
+			"type": "Blue",
+			"count": 50
+		},
+		{
+			"type": "Green",
+			"count": 23
+		},
+	],
+	14: [
+		{
+			"type": "Red",
+			"count": 49
+		},
+		{
+			"type": "Blue",
+			"count": 15
+		},
+		{
+			"type": "Green",
+			"count": 10
+		},
+		{
+			"type": "Yellow",
+			"count": 9
+		},
+	],
+	15: [
+		{
+			"type": "Red",
+			"count": 20
+		},
+		{
+			"type": "Blue",
+			"count": 15
+		},
+		{
+			"type": "Green",
+			"count": 12
+		},
+		{
+			"type": "Yellow",
+			"count": 10
+		},
+		{
+			"type": "Red",
+			"count": 5
+		},
+	],
+	16: [
+		{
+			"type": "Green",
+			"count": 40
+		},
+		{
+			"type": "Yellow",
+			"count": 8
+		},
+	],
 }

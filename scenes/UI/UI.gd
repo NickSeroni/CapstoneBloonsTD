@@ -138,6 +138,7 @@ func _on_FastButton_toggled(button_pressed):
 
 func _on_SellButton_pressed() -> void:
 	get_parent().add_money(current_tower.sell_price)
+	yield(get_tree(), "idle_frame")
 	current_tower.call_deferred("queue_free")
 	current_tower = null
 	tower_stats.visible = false

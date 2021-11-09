@@ -4,10 +4,7 @@ signal round_updated(count)
 signal lives_updated(count)
 signal money_updated(count)
 
-var balloon := preload("res://scenes/balloons/Balloon.tscn")
-
-var map_node : Node2D
-var balloon_path_area : Area2D
+const balloon := preload("res://scenes/balloons/Balloon.tscn")
 
 var build_mode := false
 var build_valid := false
@@ -16,10 +13,15 @@ var build_type : String
 
 var current_round := 0
 var is_round_ended := true
+var current_round_balloons_popped := 0
+# total balloon damage to be checked against balloons popped
+var current_round_balloon_total := 0
 
 var lives := 100
 var money := 400
 
+onready var map_node : Node2D
+onready var balloon_path_area : Area2D
 
 func _ready() -> void:
 	emit_signal("lives_updated", lives)
@@ -109,6 +111,13 @@ func start_next_round() -> void:
 	current_round += 1
 	emit_signal("round_updated", current_round)
 	var new_round = Round.new(current_round)
+	
+	# calculate total poppage necessary to advance to next round
+	if GameData.wave_data.has(current_round):
+		for i in GameData.wave_data[current_round]:
+			# ex. red -> total += 1, green -> total += 3 etc.
+			current_round_balloon_total += (i["count"] * GameData.balloon_data[i["type"]]["damage"])
+	
 	# Padding between rounds
 	yield(get_tree().create_timer(1), "timeout")
 	spawn_balloons(new_round.wave_array)
@@ -137,8 +146,12 @@ func connect_balloon_signals(b: Balloon):
 # either by popping or reaching the end to start the next round
 func check_balloons_cleared():
 	yield(get_tree(), "idle_frame")
-	if $MapContainer.get_child(0).get_node("BalloonPath").get_children().empty():
-		start_next_round()
+	
+	if current_round_balloons_popped >= current_round_balloon_total:
+		if GameData.wave_data.has(current_round + 1):
+			start_next_round()
+		else:
+			win()
 
 
 func add_money(value: int) -> void:
@@ -146,14 +159,24 @@ func add_money(value: int) -> void:
 	emit_signal("money_updated", money)
 
 
+func win() -> void:
+	print("You win!")
+
+
+func lose() -> void:
+	print("You lose!")
+
+
 func _on_balloon_end_reached(damage: int):
 	lives -= damage
 	emit_signal("lives_updated", lives)
+	current_round_balloons_popped += damage
 	check_balloons_cleared()
 
 
 func _on_balloon_poppped(value):
 	add_money(value)
+	current_round_balloons_popped += 1
 	check_balloons_cleared()
 
 
