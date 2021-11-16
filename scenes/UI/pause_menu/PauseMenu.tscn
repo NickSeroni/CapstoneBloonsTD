@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/UI/icons/Game icons (base)/PNG/White/1x/cross.png" type="Texture" id=1]
 [ext_resource path="res://resources/KFN_40_1.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/UI/pause_menu/PauseMenu.gd" type="Script" id=3]
 [ext_resource path="res://Assets/UI/icons/Game icons (base)/PNG/White/1x/audioOn.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/UI/game_over/Pause-GameOverMenuButtons.tres" type="Theme" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -53,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 351.0
 margin_right = -343.0
+theme = ExtResource( 6 )
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -60,23 +62,23 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 12.0
+margin_top = 15.0
 margin_right = 306.0
-margin_bottom = 112.0
+margin_bottom = 115.0
 rect_min_size = Vector2( 0, 100 )
 custom_fonts/font = ExtResource( 2 )
 text = "Paused"
 align = 1
 
 [node name="Control" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 162.0
+margin_top = 165.0
 margin_right = 306.0
-margin_bottom = 162.0
+margin_bottom = 165.0
 
 [node name="VolumeHSlider" type="HSlider" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 212.0
+margin_top = 215.0
 margin_right = 306.0
-margin_bottom = 228.0
+margin_bottom = 231.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="MuteCheckBox" type="CheckBox" parent="CenterContainer/ColorRect/VBoxContainer/VolumeHSlider"]
@@ -108,30 +110,30 @@ __meta__ = {
 }
 
 [node name="Spacer" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 278.0
+margin_top = 281.0
 margin_right = 306.0
-margin_bottom = 328.0
+margin_bottom = 331.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ExitToMainButton" type="Button" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 378.0
+margin_top = 381.0
 margin_right = 306.0
-margin_bottom = 428.0
+margin_bottom = 431.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = SubResource( 1 )
 text = "Exit to Main Menu"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 478.0
+margin_top = 481.0
 margin_right = 306.0
-margin_bottom = 528.0
+margin_bottom = 525.0
 custom_fonts/font = SubResource( 2 )
 text = "Quit"
 
 [node name="Control2" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
-margin_top = 578.0
+margin_top = 575.0
 margin_right = 306.0
-margin_bottom = 588.0
+margin_bottom = 585.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="CloseMenuButton" type="Button" parent="CenterContainer/ColorRect"]

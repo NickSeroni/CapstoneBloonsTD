@@ -20,6 +20,8 @@ var current_round_balloon_total := 0
 var lives := 100
 var money := 400
 
+var game_over := false
+
 onready var map_node : Node2D
 onready var balloon_path_area : Area2D
 
@@ -112,11 +114,16 @@ func start_next_round() -> void:
 	emit_signal("round_updated", current_round)
 	var new_round = Round.new(current_round)
 	
+	current_round_balloon_total = 0
+	current_round_balloons_popped = 0
+	
 	# calculate total poppage necessary to advance to next round
 	if GameData.wave_data.has(current_round):
 		for i in GameData.wave_data[current_round]:
 			# ex. red -> total += 1, green -> total += 3 etc.
 			current_round_balloon_total += (i["count"] * GameData.balloon_data[i["type"]]["damage"])
+	print("----------------Round " + String(current_round) + " ----------------------")
+	print(current_round_balloon_total)
 	
 	# Padding between rounds
 	yield(get_tree().create_timer(1), "timeout")
@@ -147,11 +154,14 @@ func connect_balloon_signals(b: Balloon):
 func check_balloons_cleared():
 	yield(get_tree(), "idle_frame")
 	
+	print(String(current_round_balloons_popped) + " / " + String(current_round_balloon_total))
+	
 	if current_round_balloons_popped >= current_round_balloon_total:
 		if GameData.wave_data.has(current_round + 1):
 			start_next_round()
 		else:
-			win()
+			if !game_over:
+				win()
 
 
 func add_money(value: int) -> void:
@@ -161,10 +171,14 @@ func add_money(value: int) -> void:
 
 func win() -> void:
 	print("You win!")
+	var game_over_screen = load("res://scenes/UI/game_over/GameOverScreen.tscn").instance()
+	$UI.add_child(game_over_screen)
+	game_over = true
 
 
 func lose() -> void:
 	print("You lose!")
+	game_over = true
 
 
 func _on_balloon_end_reached(damage: int):

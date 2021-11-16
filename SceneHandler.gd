@@ -3,7 +3,6 @@ extends Node
 
 func _ready():
 	connect_signals()
-	$MainMenu/AnimationPlayer.play("buttons")
 
 
 func connect_signals():

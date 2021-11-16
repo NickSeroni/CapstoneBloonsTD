@@ -35,12 +35,13 @@ func set_target(new_target) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group(Groups.BALLOONS):
-		area.get_parent().pop()
-		pop_count += 1
-		parent.pop_count += 1
-		parent.emit_signal("stats_changed", parent)
-		if pop_count >= pen:
-			queue_free()
+		if !area.get_parent().is_popped:
+			area.get_parent().pop()
+			pop_count += 1
+			parent.pop_count += 1
+			parent.emit_signal("stats_changed", parent)
+			if pop_count >= pen:
+				queue_free()
 
 
 func _on_LifetimeTimer_timeout() -> void:

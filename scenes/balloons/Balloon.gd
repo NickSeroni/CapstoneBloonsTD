@@ -13,6 +13,7 @@ var damage: int
 
 var child_type: String
 var is_child := false
+var is_popped := false
 
 func _ready() -> void:
 	add_to_group(Groups.BALLOONS)
@@ -52,6 +53,7 @@ func reached_end():
 
 func pop() -> void:
 	emit_signal("popped", value)
+	is_popped = true
 	if child_type != "":
 		create_child_balloon()
 	clear_balloon()

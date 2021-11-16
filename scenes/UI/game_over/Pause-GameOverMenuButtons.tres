@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=5]
+resource_local_to_scene = true
+size = 30
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.447059 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.14902, 0.203922, 0.321569, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.278431, 0.368627, 0.603922, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.184314, 0.243137, 0.403922, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/fonts/font = SubResource( 5 )
+Button/styles/hover = SubResource( 7 )
+Button/styles/normal = SubResource( 8 )
+Button/styles/pressed = SubResource( 9 )
+VBoxContainer/constants/separation = 16

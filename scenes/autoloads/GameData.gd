@@ -8,7 +8,7 @@ var tower_data = {
 		"splash": false,
 		"bullet": "res://scenes/bullets/Bullet.tscn",
 		"bullet_speed": 800,
-		"price": 200,
+		"price": 215,
 		"pen": 2
 	},
 	"MissleT1": {

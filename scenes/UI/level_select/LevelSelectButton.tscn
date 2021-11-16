@@ -15,6 +15,7 @@ font_data = ExtResource( 1 )
 margin_right = 640.0
 margin_bottom = 360.0
 rect_min_size = Vector2( 640, 360 )
+rect_pivot_offset = Vector2( 320, 180 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 1
