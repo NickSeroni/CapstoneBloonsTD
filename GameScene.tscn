@@ -423,5 +423,11 @@ text = "Sell"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD"]
 
+[node name="BalloonSpawnPadding" type="Timer" parent="."]
+one_shot = true
+
+[node name="RoundTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="toggled" from="UI/HUD/SpeedControls/PausePlayButton" to="UI" method="_on_PausePlayButton_toggled"]
 [connection signal="toggled" from="UI/HUD/SpeedControls/FastButton" to="UI" method="_on_FastButton_toggled"]

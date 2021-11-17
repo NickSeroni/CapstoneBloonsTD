@@ -18,7 +18,7 @@ var tower_data = {
 		"radius": 150,
 		"splash": true,
 		"bullet": "res://scenes/bullets/Missile.tscn",
-		"bullet_speed": 300,
+		"bullet_speed": 500,
 		"price": 300,
 		"pen": 2,
 		"tier": 1,

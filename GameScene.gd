@@ -126,7 +126,9 @@ func start_next_round() -> void:
 	print(current_round_balloon_total)
 	
 	# Padding between rounds
-	yield(get_tree().create_timer(1), "timeout")
+	$RoundTimer.wait_time = 1
+	$RoundTimer.start()
+	yield($RoundTimer, "timeout")
 	spawn_balloons(new_round.wave_array)
 
 
@@ -138,7 +140,9 @@ func spawn_balloons(wave_data: Array) -> void:
 			new_balloon.type = i["type"]
 			connect_balloon_signals(new_balloon)
 			map_node.get_node("BalloonPath").add_child(new_balloon, true)
-			yield(get_tree().create_timer(0.5), "timeout") # spawn time padding
+			$BalloonSpawnPadding.wait_time = 0.5
+			$BalloonSpawnPadding.start()
+			yield($BalloonSpawnPadding, "timeout") # spawn time padding
 
 
 func connect_balloon_signals(b: Balloon):

@@ -14,7 +14,6 @@ onready var pop_count := 0
 
 func _ready() -> void:
 	connect("area_entered", self, "_on_area_entered")
-	print(pen)
 	
 	if target.get_ref():
 		direction = (target.get_ref().get_global_transform().origin - global_position).normalized()
