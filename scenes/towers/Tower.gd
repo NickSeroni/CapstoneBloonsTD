@@ -4,14 +4,8 @@ extends Node2D
 signal tower_clicked(tower)
 signal stats_changed(tower)
 
-onready var shoot_positions := get_node("Turret/ShootPositions")
-onready var fire_radius_area := get_node("FireRadius")
-onready var time_active := Timer.new()
-onready var fire_rate_timer := Timer.new()
-onready var range_texture : Sprite
-
 var type   : String
-var tier   : String
+var tier   : int
 var rof    : float
 var radius : int
 var price  : int
@@ -32,6 +26,12 @@ var can_shoot := true
 # UI
 var pop_count : int
 
+onready var shoot_positions := get_node("Turret/ShootPositions")
+onready var fire_radius_area := get_node("FireRadius")
+onready var time_active := Timer.new()
+onready var fire_rate_timer := Timer.new()
+onready var range_texture : Sprite
+
 
 func _ready() -> void:
 	get_node("OverlapArea").connect("input_event", self, "_on_OverlapArea_input_event")
@@ -47,6 +47,7 @@ func _ready() -> void:
 	shot_type = GameData.tower_data[type]["bullet"]
 	bullet_speed = GameData.tower_data[type]["bullet_speed"]
 	bullet_pen = GameData.tower_data[type]["pen"]
+	tier = GameData.tower_data[type]["tier"]
 	
 	if shot_type != "":
 		bullet = load(shot_type)
@@ -131,7 +132,7 @@ func _on_OverlapArea_input_event(viewport: Node, event: InputEvent, shape_idx: i
 
 
 func _on_FireRadius_area_entered(area: Area2D) -> void:
-	if area.get_parent().is_in_group("balloons"):
+	if area.get_parent() is Balloon:
 		var balloon = area.get_parent()
 		#print(balloon.name + " entered")
 		
@@ -139,7 +140,7 @@ func _on_FireRadius_area_entered(area: Area2D) -> void:
 
 
 func _on_FireRadius_area_exited(area: Area2D) -> void:
-	if area.get_parent().is_in_group("balloons"):
+	if area.get_parent() is Balloon:
 		var balloon = area.get_parent()
 		#print(balloon.name + " exited")
 		

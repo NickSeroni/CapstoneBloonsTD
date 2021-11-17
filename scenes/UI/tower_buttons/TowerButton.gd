@@ -4,7 +4,7 @@ onready var icon := $Icon
 
 export var icon_image: Texture
 export var price: int
-onready var type: String = name + "T1"
+onready var type: String = name + "1"
 
 func _ready():
 	icon.texture = icon_image

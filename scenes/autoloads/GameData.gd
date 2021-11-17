@@ -2,23 +2,27 @@ extends Node
 
 
 var tower_data = {
-	"GunT1": {
+	"Gun1": {
 		"rof": 1.5,
 		"radius": 100,
 		"splash": false,
 		"bullet": "res://scenes/bullets/Bullet.tscn",
 		"bullet_speed": 800,
 		"price": 215,
-		"pen": 2
+		"pen": 2,
+		"tier": 1,
+		"type": "Gun"
 	},
-	"MissleT1": {
+	"Missile1": {
 		"rof": 1,
 		"radius": 150,
 		"splash": true,
-		"bullet": "res://assets/TowerDefensePack/MissleT1.png",
+		"bullet": "res://scenes/bullets/Missile.tscn",
 		"bullet_speed": 300,
 		"price": 300,
-		"pen": 2
+		"pen": 2,
+		"tier": 1,
+		"type": "Missile"
 	}
 }
 

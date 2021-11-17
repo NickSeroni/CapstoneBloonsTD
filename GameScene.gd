@@ -57,7 +57,7 @@ func initiate_build_mode(tower_type: String) -> void:
 	if build_mode:
 		cancel_build_mode()
 	
-	build_type = tower_type + "T1"
+	build_type = tower_type + "1"
 	build_mode = true
 	
 	# Disable all build buttons until tower is built or action cancelled
@@ -132,9 +132,7 @@ func start_next_round() -> void:
 
 func spawn_balloons(wave_data: Array) -> void:
 	# loop through every wave, then spawn a balloon for each count
-	var c := 0
 	for i in wave_data:
-		c += 1
 		for _w in range(i["count"]):
 			var new_balloon = balloon.instance()
 			new_balloon.type = i["type"]

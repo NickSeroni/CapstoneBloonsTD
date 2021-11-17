@@ -2,7 +2,6 @@ class_name Bullet
 extends Area2D
 
 var parent
-
 var lifetime: float = 0.3
 var target = null setget set_target
 var speed
@@ -13,12 +12,9 @@ var pen := 0
 # number of balloons popped
 onready var pop_count := 0
 
-
 func _ready() -> void:
 	connect("area_entered", self, "_on_area_entered")
-	$LifetimeTimer.connect("timeout", self, "_on_LifetimeTimer_timeout")
-	$LifetimeTimer.start(lifetime)
-	add_to_group(Groups.BULLETS)
+	print(pen)
 	
 	if target.get_ref():
 		direction = (target.get_ref().get_global_transform().origin - global_position).normalized()
@@ -34,14 +30,13 @@ func set_target(new_target) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.get_parent().is_in_group(Groups.BALLOONS):
+	if area.get_parent() is Balloon:
 		if !area.get_parent().is_popped:
 			area.get_parent().pop()
-			pop_count += 1
-			parent.pop_count += 1
 			parent.emit_signal("stats_changed", parent)
+			pop_count += 1
 			if pop_count >= pen:
-				queue_free()
+				call_deferred("queue_free")
 
 
 func _on_LifetimeTimer_timeout() -> void:

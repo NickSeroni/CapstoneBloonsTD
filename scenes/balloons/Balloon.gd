@@ -16,8 +16,6 @@ var is_child := false
 var is_popped := false
 
 func _ready() -> void:
-	add_to_group(Groups.BALLOONS)
-	
 	color = GameData.balloon_data[type]["color"]
 	speed = GameData.balloon_data[type]["speed"]
 	value = GameData.balloon_data[type]["value"]

@@ -6,15 +6,15 @@ var is_tower_ui_active := false
 onready var current_tower: Tower
 
 onready var tower_stats := $HUD/TowerStats
-onready var type_label := tower_stats.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/TypeLabel")
-onready var tier_label := tower_stats.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/TierLabel")
-onready var rof_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/ROFLabel")
-onready var pen_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PenLabel")
-onready var pops_label := tower_stats.get_node("HBoxContainer/VBoxContainer3/PopCountLabel")
+onready var type_label := tower_stats.get_node("TypeLabel")
+onready var tier_label := tower_stats.get_node("TierLabel")
+onready var rof_label := tower_stats.get_node("VBoxContainer3/ROFLabel")
+onready var pen_label := tower_stats.get_node("VBoxContainer3/PenLabel")
+onready var pops_label := tower_stats.get_node("VBoxContainer3/PopCountLabel")
 onready var upgrade_price_label := tower_stats.get_node("PricesContainer/UpgradePriceLabel")
 onready var sell_price_label := tower_stats.get_node("PricesContainer/SellPriceLabel")
-onready var upgrade_button := tower_stats.get_node("HBoxContainer/ButtonContainer/UpgradeButton")
-onready var sell_button := tower_stats.get_node("HBoxContainer/ButtonContainer/SellButton")
+onready var upgrade_button := tower_stats.get_node("ButtonContainer/UpgradeButton")
+onready var sell_button := tower_stats.get_node("ButtonContainer/SellButton")
 
 
 func _ready():
@@ -88,8 +88,8 @@ func toggle_pause():
 func update_tower_stats(t: Tower) -> void:
 	current_tower = t
 	
-	type_label.text = t.type
-	tier_label.text = t.tier
+	type_label.text = t.type.substr(0, t.type.length() - 1) 
+	tier_label.text = "Tier " + String(t.tier)
 	rof_label.text = "ROF: " + String(t.rof)
 	pen_label.text = "Pen: " + String(t.bullet_pen)
 	pops_label.text = "Pops: " + String(t.pop_count)

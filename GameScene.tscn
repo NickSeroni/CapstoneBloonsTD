@@ -61,6 +61,17 @@ font_data = ExtResource( 1 )
 [sub_resource type="Theme" id=19]
 Label/fonts/font = SubResource( 18 )
 
+[sub_resource type="DynamicFont" id=20]
+resource_local_to_scene = true
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.447059 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=21]
+Label/colors/font_color = Color( 1, 0.905882, 0.298039, 1 )
+Label/fonts/font = SubResource( 20 )
+
 [sub_resource type="DynamicFont" id=9]
 size = 24
 font_data = ExtResource( 8 )
@@ -104,17 +115,6 @@ corner_radius_bottom_left = 5
 Button/styles/hover = SubResource( 14 )
 Button/styles/normal = SubResource( 15 )
 
-[sub_resource type="DynamicFont" id=20]
-resource_local_to_scene = true
-size = 20
-outline_size = 1
-outline_color = Color( 0, 0, 0, 0.447059 )
-font_data = ExtResource( 1 )
-
-[sub_resource type="Theme" id=21]
-Label/colors/font_color = Color( 1, 0.905882, 0.298039, 1 )
-Label/fonts/font = SubResource( 20 )
-
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 5 )
 
@@ -152,7 +152,7 @@ margin_top = 0.0
 icon_image = ExtResource( 10 )
 price = 150
 
-[node name="Missle" parent="UI/HUD/BuildBar" instance=ExtResource( 3 )]
+[node name="Missile" parent="UI/HUD/BuildBar" instance=ExtResource( 3 )]
 margin_top = 84.0
 margin_bottom = 164.0
 icon_image = ExtResource( 11 )
@@ -273,122 +273,92 @@ __meta__ = {
 
 [node name="TowerStats" type="Panel" parent="UI/HUD"]
 self_modulate = Color( 1, 1, 1, 0.823529 )
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -450.0
-margin_top = -160.0
-margin_right = 450.0
-margin_bottom = -10.0
+anchor_left = 0.266
+anchor_top = 0.852
+anchor_right = 0.734
+anchor_bottom = 0.991
+margin_left = -0.720001
+margin_top = -0.160034
+margin_right = 0.719971
+margin_bottom = -0.280029
 rect_min_size = Vector2( 900, 150 )
 theme = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/TowerStats"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 35.0
-margin_top = 10.0
-margin_right = -25.0
-margin_bottom = -10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_right = 128.0
-margin_bottom = 130.0
-custom_constants/separation = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer"]
-margin_right = 128.0
-margin_bottom = 41.0
-custom_constants/separation = 15
-
-[node name="TypeLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 75.0
-margin_bottom = 41.0
+[node name="TypeLabel" type="Label" parent="UI/HUD/TowerStats"]
+anchor_left = 0.027
+anchor_top = 0.073
+anchor_right = 0.11
+anchor_bottom = 0.347
+margin_left = -0.300001
+margin_top = 0.0499992
+margin_right = -7.62939e-06
+margin_bottom = -0.0499992
 text = "GUN"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TierLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 90.0
-margin_right = 128.0
-margin_bottom = 41.0
-text = "T1"
+[node name="TierLabel" type="Label" parent="UI/HUD/TowerStats"]
+anchor_left = 0.027
+anchor_top = 0.3
+anchor_right = 0.148
+anchor_bottom = 0.573
+margin_left = -0.300001
+margin_top = 0.0180016
+margin_right = -0.199997
+margin_bottom = 0.0680008
+text = "TIER 1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Spacer" type="Control" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_left = 132.0
-margin_right = 317.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 185, 0 )
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_left = 321.0
-margin_right = 473.0
-margin_bottom = 130.0
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/HUD/TowerStats"]
+anchor_left = 0.31
+anchor_top = 0.067
+anchor_right = 0.565
+anchor_bottom = 0.933
+margin_left = -0.100006
+margin_top = -0.0500002
+margin_right = -0.200012
+margin_bottom = 0.0500031
 theme = SubResource( 19 )
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ROFLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer3"]
+[node name="ROFLabel" type="Label" parent="UI/HUD/TowerStats/VBoxContainer3"]
 margin_top = 5.0
-margin_right = 152.0
+margin_right = 229.0
 margin_bottom = 32.0
 text = "ROF: 1"
+align = 1
 
-[node name="PenLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer3"]
+[node name="PenLabel" type="Label" parent="UI/HUD/TowerStats/VBoxContainer3"]
 margin_top = 36.0
-margin_right = 152.0
+margin_right = 229.0
 margin_bottom = 63.0
 text = "Pen: 2"
+align = 1
 
-[node name="RadiusLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer3"]
+[node name="RadiusLabel" type="Label" parent="UI/HUD/TowerStats/VBoxContainer3"]
 margin_top = 67.0
-margin_right = 152.0
+margin_right = 229.0
 margin_bottom = 94.0
 text = "Radius: 100"
+align = 1
 
-[node name="PopCountLabel" type="Label" parent="UI/HUD/TowerStats/HBoxContainer/VBoxContainer3"]
+[node name="PopCountLabel" type="Label" parent="UI/HUD/TowerStats/VBoxContainer3"]
 margin_top = 98.0
-margin_right = 152.0
+margin_right = 229.0
 margin_bottom = 125.0
 text = "Pops: 0"
-
-[node name="Spacer2" type="Control" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_left = 477.0
-margin_right = 667.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 190, 0 )
-
-[node name="ButtonContainer" type="VBoxContainer" parent="UI/HUD/TowerStats/HBoxContainer"]
-margin_left = 671.0
-margin_right = 821.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 150, 0 )
-theme = SubResource( 10 )
-custom_constants/separation = 10
-alignment = 1
-
-[node name="UpgradeButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/ButtonContainer"]
-margin_top = 10.0
-margin_right = 150.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 50 )
-theme = SubResource( 13 )
-text = "Upgrade"
-
-[node name="SellButton" type="Button" parent="UI/HUD/TowerStats/HBoxContainer/ButtonContainer"]
-margin_top = 70.0
-margin_right = 150.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 0, 50 )
-theme = SubResource( 16 )
-text = "Sell"
+align = 1
 
 [node name="PricesContainer" type="VBoxContainer" parent="UI/HUD/TowerStats"]
 anchor_left = 0.679106
@@ -417,6 +387,39 @@ margin_right = 102.0
 margin_bottom = 86.0
 text = "$50"
 align = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="UI/HUD/TowerStats"]
+anchor_left = 0.803
+anchor_top = 0.067
+anchor_right = 0.979
+anchor_bottom = 0.933
+margin_left = 0.399963
+margin_top = -0.0500002
+margin_right = 0.0999146
+margin_bottom = 0.0500031
+rect_min_size = Vector2( 150, 0 )
+theme = SubResource( 10 )
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeButton" type="Button" parent="UI/HUD/TowerStats/ButtonContainer"]
+margin_top = 10.0
+margin_right = 158.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 50 )
+theme = SubResource( 13 )
+text = "Upgrade"
+
+[node name="SellButton" type="Button" parent="UI/HUD/TowerStats/ButtonContainer"]
+margin_top = 70.0
+margin_right = 158.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 50 )
+theme = SubResource( 16 )
+text = "Sell"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD"]
 
