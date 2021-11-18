@@ -14,7 +14,7 @@ var tower_data = {
 		"type": "Gun"
 	},
 	"Missile1": {
-		"rof": 1,
+		"rof": 2,
 		"radius": 150,
 		"splash": true,
 		"bullet": "res://scenes/bullets/Missile.tscn",

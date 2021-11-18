@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/TowerDefensePack/MissleT1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/bullets/Missile.gd" type="Script" id=2]
@@ -6,6 +6,58 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.14131
 height = 20.864
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 60.0
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.01766, 0.0728477, 0.256071, 0.706402, 0.940397, 0.986755 )
+colors = PoolColorArray( 0, 0, 0, 0.27451, 0, 0, 0, 1, 0.966797, 0.864358, 0.0302124, 1, 0.960938, 0.145748, 0.0375366, 1, 1, 1, 1, 1, 0.996078, 0.929412, 0.917647, 0.27451 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.995798, 0.388636 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+lifetime_randomness = 0.4
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 90.0
+initial_velocity_random = 0.1
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 90.0
+angle = 90.0
+angle_random = 0.6
+scale = 6.0
+scale_random = 0.5
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 7 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.013245, 0.0816777, 0.291391, 0.763797, 0.860927, 0.986755 )
+colors = PoolColorArray( 0, 0, 0, 0.388235, 0, 0, 0, 1, 0.830566, 0.730098, 0.149242, 1, 0.842285, 0.199088, 0.17767, 1, 1, 1, 1, 1, 1, 1, 1, 0.270588 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 10, 10, 0 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 8.0
+scale_random = 0.5
+color_ramp = SubResource( 10 )
 
 [node name="Missile" type="Area2D"]
 collision_layer = 4
@@ -16,8 +68,39 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0992126, -0.642519 )
+position = Vector2( 0, -2 )
 shape = SubResource( 1 )
+
+[node name="ExplosionArea2D" type="Area2D" parent="."]
+scale = Vector2( 1.16, 1.28 )
+collision_layer = 4
+collision_mask = 4
+
+[node name="ExplosionShape2D" type="CollisionShape2D" parent="ExplosionArea2D"]
+position = Vector2( 0, -5 )
+shape = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 0.8
+randomness = 0.5
+local_coords = false
+process_material = SubResource( 3 )
+
+[node name="Particles2D" type="Particles2D" parent="Particles2D"]
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+local_coords = false
+process_material = SubResource( 8 )
 
 [node name="LifetimeTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="FreeTimer" type="Timer" parent="."]

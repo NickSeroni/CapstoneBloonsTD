@@ -88,7 +88,9 @@ func toggle_pause():
 func update_tower_stats(t: Tower) -> void:
 	current_tower = t
 	
-	type_label.text = t.type.substr(0, t.type.length() - 1) 
+	print(t.pop_count)
+	
+	type_label.text = t.type.substr(0, t.type.length() - 1)
 	tier_label.text = "Tier " + String(t.tier)
 	rof_label.text = "ROF: " + String(t.rof)
 	pen_label.text = "Pen: " + String(t.bullet_pen)
