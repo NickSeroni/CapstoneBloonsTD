@@ -24,7 +24,7 @@ func _ready():
 	
 	sell_button.connect("pressed", self, "_on_SellButton_pressed")
 	
-	$HUD/TowerStats.visible = false
+	#$HUD/TowerStats.visible = false
 
 
 func _unhandled_input(event):

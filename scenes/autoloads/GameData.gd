@@ -60,6 +60,7 @@ var balloon_data = {
 var levelArray = [
 	"Plains",
 	"Winterland",
+	"Moon",
 ]
 
 var levelDict = {
@@ -70,7 +71,11 @@ var levelDict = {
 	"Winterland": {
 		"img": "res://assets/winter-map.png",
 		"scene": "res://scenes/levels/winterland/Winterland.tscn"
-	}
+	},
+	"Moon": {
+		"img": "res://assets/MoonMap.png",
+		"scene": "res://scenes/levels/MoonMap.tscn"
+	},
 }
 
 var wave_data = {

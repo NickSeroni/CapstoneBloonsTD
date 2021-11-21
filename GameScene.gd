@@ -203,14 +203,25 @@ func _on_BalloonChildSpawned(balloon: WeakRef):
 # Recieves the tower that has been clicked
 # Sets the tower UI based on that tower's stats
 func _on_TowerClicked(t: Tower) -> void:
-	if t == $UI.current_tower and $UI/HUD/TowerStats.visible:
-		$UI/HUD/TowerStats.visible = false
+	if t == $UI.current_tower and $UI.is_tower_ui_active:
+		#$UI/HUD/TowerStats.visible = false
+		$UI.is_tower_ui_active = false
+		$UI/HUD/AnimationPlayer.play_backwards("show_tower_ui")
 		t.range_texture.hide()
 		$UI.current_tower = null
-	else:
-		$UI/HUD/TowerStats.visible = true
+	elif t != $UI.current_tower and $UI.is_tower_ui_active:
 		if $UI.current_tower:
 			$UI.current_tower.range_texture.hide()
+		t.range_texture.show()
+		$UI.update_tower_stats(t)
+	else:
+		if $UI.current_tower:
+			$UI.current_tower.range_texture.hide()
+		if $UI/HUD/TowerStats.visible == false:
+			$UI/HUD/TowerStats.visible = true
+		$UI.is_tower_ui_active = true
+		$UI/HUD/AnimationPlayer.play("show_tower_ui")
+		
 		t.range_texture.show()
 		$UI.update_tower_stats(t)
 
