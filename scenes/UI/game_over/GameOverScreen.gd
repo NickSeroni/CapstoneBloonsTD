@@ -24,4 +24,4 @@ func _on_ExitToMainButton_pressed():
 
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	SaveHandler.save_and_quit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/1x/forward.png" type="Texture" id=2]
@@ -115,24 +115,9 @@ corner_radius_bottom_left = 5
 Button/styles/hover = SubResource( 14 )
 Button/styles/normal = SubResource( 15 )
 
-[sub_resource type="Animation" id=23]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("TowerStats:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 510, 1100 ) ]
-}
-
 [sub_resource type="Animation" id=22]
 resource_name = "show_tower_ui"
-length = 0.6
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("TowerStats:rect_position")
 tracks/0/interp = 2
@@ -140,7 +125,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 510, 1100 ), Vector2( 510, 920 ) ]
@@ -169,11 +154,11 @@ __meta__ = {
 
 [node name="BuildBar" type="VBoxContainer" parent="UI/HUD"]
 pause_mode = 1
-anchor_top = 1.0
+anchor_top = 0.78
+anchor_right = 0.052
 anchor_bottom = 1.0
-margin_top = -400.0
-margin_right = 100.0
-rect_min_size = Vector2( 100, 400 )
+margin_top = -0.400024
+margin_right = 0.159996
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -305,17 +290,17 @@ __meta__ = {
 [node name="TowerStats" type="Panel" parent="UI/HUD"]
 self_modulate = Color( 1, 1, 1, 0.823529 )
 anchor_left = 0.266
-anchor_top = 0.852
+anchor_top = 1.019
 anchor_right = 0.734
-anchor_bottom = 0.991
-margin_left = 510.0
-margin_top = 1100.0
-margin_right = 1410.0
-margin_bottom = 1250.0
+anchor_bottom = 1.157
+margin_left = -0.720001
+margin_top = -0.52002
+margin_right = 0.719971
+margin_bottom = 0.440674
 rect_min_size = Vector2( 900, 150 )
 theme = SubResource( 5 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
 [node name="TypeLabel" type="Label" parent="UI/HUD/TowerStats"]
@@ -453,7 +438,6 @@ theme = SubResource( 16 )
 text = "Sell"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD"]
-anims/RESET = SubResource( 23 )
 anims/show_tower_ui = SubResource( 22 )
 
 [node name="BalloonSpawnPadding" type="Timer" parent="."]

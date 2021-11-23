@@ -22,6 +22,8 @@ var money := 400
 
 var game_over := false
 
+var current_map_name: String
+
 onready var map_node : Node2D
 onready var balloon_path_area : Area2D
 
@@ -35,6 +37,7 @@ func _ready() -> void:
 	
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+	
 
 
 func _process(delta: float) -> void:
@@ -176,6 +179,8 @@ func win() -> void:
 	var game_over_screen = load("res://scenes/UI/game_over/GameOverScreen.tscn").instance()
 	$UI.add_child(game_over_screen)
 	game_over = true
+	
+	GameData.levelDict[current_map_name]["completed"] = true
 
 
 func lose() -> void:

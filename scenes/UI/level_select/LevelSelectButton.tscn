@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/TowerDefenseMap01.png" type="Texture" id=2]
 [ext_resource path="res://scenes/UI/level_select/LevelSelectButton.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/2x/star.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -47,6 +48,19 @@ rect_min_size = Vector2( 30, 10 )
 custom_fonts/font = SubResource( 1 )
 text = "Plains 1"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarTextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 0.92549, 0.854902, 0.113725, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

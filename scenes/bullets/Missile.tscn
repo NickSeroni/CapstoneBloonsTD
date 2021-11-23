@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/bullets/Missile.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 7.14131
-height = 20.864
+radius = 12.8977
+height = 11.5438
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 60.0

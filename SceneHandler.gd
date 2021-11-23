@@ -17,4 +17,4 @@ func _on_PlayButton_pressed() -> void:
 
 
 func _on_Quit_pressed() -> void:
-	get_tree().quit()
+	SaveHandler.save_and_quit()

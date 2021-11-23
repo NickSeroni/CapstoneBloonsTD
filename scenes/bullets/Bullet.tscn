@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/bullets/Bullet.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 6.8974
-height = 6.7908
+radius = 8.62077
+height = 8.7479
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 4

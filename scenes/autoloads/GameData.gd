@@ -7,7 +7,7 @@ var tower_data = {
 		"radius": 100,
 		"splash": false,
 		"bullet": "res://scenes/bullets/Bullet.tscn",
-		"bullet_speed": 800,
+		"bullet_speed": 900,
 		"price": 215,
 		"pen": 2,
 		"tier": 1,
@@ -18,7 +18,7 @@ var tower_data = {
 		"radius": 150,
 		"splash": true,
 		"bullet": "res://scenes/bullets/Missile.tscn",
-		"bullet_speed": 500,
+		"bullet_speed": 700,
 		"price": 300,
 		"pen": 2,
 		"tier": 1,
@@ -29,28 +29,28 @@ var tower_data = {
 var balloon_data = {
 	"Red": {
 		"color": Color.red,
-		"speed": 100,
+		"speed": 110,
 		"value": 1,
 		"damage": 1
 	},
 	"Blue": {
 		"child": "Red",
 		"color": Color.blue,
-		"speed": 120,
+		"speed": 130,
 		"value": 2,
 		"damage": 2
 	},
 	"Green": {
 		"child": "Blue",
 		"color": Color.green,
-		"speed": 160,
+		"speed": 170,
 		"value": 3,
 		"damage": 3
 	},
 	"Yellow": {
 		"child": "Green",
 		"color": Color.yellow,
-		"speed": 200,
+		"speed": 210,
 		"value": 4,
 		"damage": 4
 	}
@@ -63,18 +63,23 @@ var levelArray = [
 	"Moon",
 ]
 
+# Completed changes upon winning a level, then is saved to a file
+# When game loads, the completed value is read from the save file
 var levelDict = {
 	"Plains": {
 		"img": "res://assets/TowerDefenseMap01.png",
 		"scene": "res://scenes/levels/level01/Level01.tscn",
+		"completed": false,
 	},
 	"Winterland": {
 		"img": "res://assets/winter-map.png",
-		"scene": "res://scenes/levels/winterland/Winterland.tscn"
+		"scene": "res://scenes/levels/winterland/Winterland.tscn",
+		"completed": false,
 	},
 	"Moon": {
 		"img": "res://assets/MoonMap.png",
-		"scene": "res://scenes/levels/MoonMap.tscn"
+		"scene": "res://scenes/levels/MoonMap.tscn",
+		"completed": false,
 	},
 }
 
