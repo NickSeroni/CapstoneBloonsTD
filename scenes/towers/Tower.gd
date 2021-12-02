@@ -30,7 +30,7 @@ var can_shoot := true
 var pop_count : int
 
 onready var shoot_positions := get_node("Turret/ShootPositions")
-onready var fire_radius_area := get_node("FireRadius")
+onready var fire_radius_area :Area2D = get_node("FireRadius")
 onready var time_active := Timer.new()
 onready var fire_rate_timer := Timer.new()
 onready var range_texture : Sprite
@@ -147,6 +147,8 @@ func upgrade() -> void:
 			
 			var scaling = radius / 256.0
 			range_texture.scale = Vector2(scaling, scaling)
+			
+			fire_radius_area.get_node("CollisionShape2D").shape.radius = radius
 			
 			if !GameData.tower_tiers[type].has(tier + 1):
 				next_tier_available = false
