@@ -15,9 +15,9 @@ strikes a good balance between fun to play and challenge to develop.
 ## Installation
 
 To download the source or export from source, you need to 
-[download](https://godotengine.org/download){:target="_blank"} the Godot Engine.
+[download](https://godotengine.org/download) the Godot Engine.
 
-[**Exporting**](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_projects.html){:target="_blank"}
+[**Exporting**](https://docs.godotengine.org/en/stable/getting_started/workflow/export/exporting_projects.html)
 1. Click on **Project** in the top bar
 2. Click **export**
 3. Click **Add**
