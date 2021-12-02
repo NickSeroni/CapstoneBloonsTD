@@ -20,14 +20,20 @@ func _ready():
 	$CenterContainer/ColorRect/VBoxContainer/ExitToMainButton.connect("pressed", self, "_on_ExitToMainButton_pressed")
 	
 	$CenterContainer/ColorRect/VBoxContainer/QuitButton.connect("pressed", self, "_on_QuitButton_pressed")
+	
+	$CenterContainer/ColorRect/VBoxContainer/VolumeHSlider.connect("value_changed", self, "_on_VolumeSlider_value_changed")
+	$CenterContainer/ColorRect/VBoxContainer/VolumeHSlider/MuteCheckBox.connect("toggled", self, "_on_MuteButton_toggled")
+	
+	hide()
 
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and visible:
 		get_tree().set_input_as_handled()
 		if get_parent().is_pause_button_active:
 			get_tree().paused = false
-		queue_free()
+		
+		hide()
 
 
 func _on_CloseMenuButton_button_down():
@@ -42,7 +48,7 @@ func _on_CloseMenuButton_button_up():
 	if get_tree().paused == true:
 		get_tree().paused = false
 	
-	queue_free()
+	hide()
 
 
 func _on_ExitToMainButton_pressed():
@@ -57,3 +63,25 @@ func _on_ExitToMainButton_pressed():
 
 func _on_QuitButton_pressed():
 	SaveHandler.save_and_quit()
+
+
+func _on_VolumeSlider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
+
+
+func _on_MuteButton_toggled(button_pressed: bool) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), button_pressed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

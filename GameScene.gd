@@ -37,7 +37,6 @@ func _ready() -> void:
 	
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
-	
 
 
 func _process(delta: float) -> void:
@@ -60,7 +59,7 @@ func initiate_build_mode(tower_type: String) -> void:
 	if build_mode:
 		cancel_build_mode()
 	
-	build_type = tower_type + "1"
+	build_type = tower_type
 	build_mode = true
 	
 	# Disable all build buttons until tower is built or action cancelled
@@ -113,26 +112,27 @@ func verify_and_build() -> void:
 
 # Next round should start when all balloons are popped from previous round
 func start_next_round() -> void:
-	current_round += 1
-	emit_signal("round_updated", current_round)
-	var new_round = Round.new(current_round)
-	
-	current_round_balloon_total = 0
-	current_round_balloons_popped = 0
-	
-	# calculate total poppage necessary to advance to next round
-	if GameData.wave_data.has(current_round):
-		for i in GameData.wave_data[current_round]:
-			# ex. red -> total += 1, green -> total += 3 etc.
-			current_round_balloon_total += (i["count"] * GameData.balloon_data[i["type"]]["damage"])
-	print("----------------Round " + String(current_round) + " ----------------------")
-	print(current_round_balloon_total)
-	
-	# Padding between rounds
-	$RoundTimer.wait_time = 1
-	$RoundTimer.start()
-	yield($RoundTimer, "timeout")
-	spawn_balloons(new_round.wave_array)
+	if !game_over:
+		current_round += 1
+		emit_signal("round_updated", current_round)
+		var new_round = Round.new(current_round)
+		
+		current_round_balloon_total = 0
+		current_round_balloons_popped = 0
+		
+		# calculate total poppage necessary to advance to next round
+		if GameData.wave_data.has(current_round):
+			for i in GameData.wave_data[current_round]:
+				# ex. red -> total += 1, green -> total += 3 etc.
+				current_round_balloon_total += (i["count"] * GameData.balloon_data[i["type"]]["damage"])
+		print("----------------Round " + String(current_round) + " ----------------------")
+		print(current_round_balloon_total)
+		
+		# Padding between rounds
+		$RoundTimer.wait_time = 1
+		$RoundTimer.start()
+		yield($RoundTimer, "timeout")
+		spawn_balloons(new_round.wave_array)
 
 
 func spawn_balloons(wave_data: Array) -> void:
@@ -176,6 +176,8 @@ func add_money(value: int) -> void:
 
 func win() -> void:
 	print("You win!")
+	freeze_scene(self, true)
+	get_tree().paused = true
 	var game_over_screen = load("res://scenes/UI/game_over/GameOverScreen.tscn").instance()
 	$UI.add_child(game_over_screen)
 	game_over = true
@@ -185,12 +187,41 @@ func win() -> void:
 
 func lose() -> void:
 	print("You lose!")
+	freeze_scene(self, true)
+	get_tree().paused = true
+	var game_over_screen = load("res://scenes/UI/game_over/GameOverScreen.tscn").instance()
+	game_over_screen.is_loss = true
+	$UI.add_child(game_over_screen)
 	game_over = true
+
+
+# Recursively iterate over the whole GameScene scene tree
+# Set each nodes pause_mode to stop
+# Then pause the tree
+func freeze_node(node: Node, freeze: bool):
+	node.set_process(!freeze)
+	node.set_physics_process(!freeze)
+	node.set_process_input(!freeze)
+	node.set_process_internal(!freeze)
+	node.set_process_unhandled_input(!freeze)
+	node.set_process_unhandled_key_input(!freeze)
+	for i in node.get_property_list():
+		if i.name == "disabled":
+			node.set_deferred("disabled", true)
+
+func freeze_scene(node: Node, freeze: bool):
+	freeze_node(node, freeze)
+	for c in node.get_children():
+		freeze_scene(c, freeze)
 
 
 func _on_balloon_end_reached(damage: int):
 	lives -= damage
 	emit_signal("lives_updated", lives)
+	
+	if lives <= 0:
+		lose()
+	
 	current_round_balloons_popped += damage
 	check_balloons_cleared()
 

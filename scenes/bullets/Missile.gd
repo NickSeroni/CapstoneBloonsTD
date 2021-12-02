@@ -29,6 +29,7 @@ func detonate():
 	direction = Vector2.ZERO
 	$Particles2D.restart()
 	$Particles2D/Particles2D.restart()
+	$AudioStreamPlayer.play()
 	
 	for b in balloons_in_radius:
 		if !b.is_popped:

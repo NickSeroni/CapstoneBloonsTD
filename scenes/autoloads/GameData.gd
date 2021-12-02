@@ -2,7 +2,7 @@ extends Node
 
 
 var tower_data = {
-	"Gun1": {
+	"Gun": {
 		"rof": 1.5,
 		"radius": 100,
 		"splash": false,
@@ -13,17 +13,49 @@ var tower_data = {
 		"tier": 1,
 		"type": "Gun"
 	},
-	"Missile1": {
+	"Missile": {
 		"rof": 2,
-		"radius": 150,
+		"radius": 130,
 		"splash": true,
 		"bullet": "res://scenes/bullets/Missile.tscn",
 		"bullet_speed": 700,
 		"price": 300,
-		"pen": 2,
+		"pen": 1,
 		"tier": 1,
 		"type": "Missile"
 	}
+}
+
+var tower_tiers = {
+	"Gun": {
+		2: {
+			"rof": 0.8,
+			"radius": 120,
+			"pen": 3,
+			"price": 100
+		},
+		3: {
+			"rof": 0.5,
+			"radius": 150,
+			"pen": 4,
+			"price": 120
+		}
+	},
+	
+	"Missile": {
+		2: {
+			"rof": 1,
+			"radius": 160,
+			"pen": 2,
+			"price": 100
+		},
+		3: {
+			"rof": 0.8,
+			"radius": 180,
+			"pen": 3,
+			"price": 120,
+		}
+	},
 }
 
 var balloon_data = {
@@ -61,6 +93,8 @@ var levelArray = [
 	"Plains",
 	"Winterland",
 	"Moon",
+	"Spooky",
+	"Korea",
 ]
 
 # Completed changes upon winning a level, then is saved to a file
@@ -81,6 +115,16 @@ var levelDict = {
 		"scene": "res://scenes/levels/MoonMap.tscn",
 		"completed": false,
 	},
+	"Spooky": {
+		"img": "res://assets/SpookyMap.png",
+		"scene": "res://scenes/levels/SpookyMap.tscn",
+		"completed": false,
+	},
+	"Korea": {
+		"img": "res://assets/Koreanflaglevel.png",
+		"scene": "res://scenes/levels/KoreanFlagMap.tscn",
+		"completed": false,
+	}
 }
 
 var wave_data = {

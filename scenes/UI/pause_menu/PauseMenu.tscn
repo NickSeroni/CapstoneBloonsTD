@@ -80,6 +80,8 @@ margin_top = 215.0
 margin_right = 306.0
 margin_bottom = 231.0
 rect_min_size = Vector2( 0, 10 )
+min_value = -10.0
+max_value = 10.0
 
 [node name="MuteCheckBox" type="CheckBox" parent="CenterContainer/ColorRect/VBoxContainer/VolumeHSlider"]
 anchor_left = -0.012

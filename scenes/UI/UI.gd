@@ -10,6 +10,7 @@ onready var type_label := tower_stats.get_node("TypeLabel")
 onready var tier_label := tower_stats.get_node("TierLabel")
 onready var rof_label := tower_stats.get_node("VBoxContainer3/ROFLabel")
 onready var pen_label := tower_stats.get_node("VBoxContainer3/PenLabel")
+onready var radius_label := tower_stats.get_node("VBoxContainer3/RadiusLabel")
 onready var pops_label := tower_stats.get_node("VBoxContainer3/PopCountLabel")
 onready var upgrade_price_label := tower_stats.get_node("PricesContainer/UpgradePriceLabel")
 onready var sell_price_label := tower_stats.get_node("PricesContainer/SellPriceLabel")
@@ -22,6 +23,7 @@ func _ready():
 	get_parent().connect("lives_updated", self, "_on_lives_updated")
 	get_parent().connect("money_updated", self, "_on_money_updated")
 	
+	upgrade_button.connect("pressed", self, "_on_UpgradeButton_pressed")
 	sell_button.connect("pressed", self, "_on_SellButton_pressed")
 	
 	#$HUD/TowerStats.visible = false
@@ -29,8 +31,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel") && !get_parent().build_mode:
-		var pause_menu = load("res://scenes/UI/pause_menu/PauseMenu.tscn").instance()
-		add_child(pause_menu)
+		$PauseMenu.show()
 		toggle_pause()
 
 
@@ -88,15 +89,19 @@ func toggle_pause():
 func update_tower_stats(t: Tower) -> void:
 	current_tower = t
 	
-	print(t.pop_count)
-	
-	type_label.text = t.type.substr(0, t.type.length() - 1)
+	type_label.text = t.type
 	tier_label.text = "Tier " + String(t.tier)
 	rof_label.text = "ROF: " + String(t.rof)
 	pen_label.text = "Pen: " + String(t.bullet_pen)
+	radius_label.text = "Radius: " + String(t.radius)
 	pops_label.text = "Pops: " + String(t.pop_count)
-	upgrade_price_label.text = "$" + String(t.price)
 	sell_price_label.text = "$" + String(t.sell_price)
+	
+	if t.next_tier_available:
+		upgrade_price_label.text = "$" + String(t.next_upgrade_price)
+	else:
+		upgrade_price_label.text = ""
+		upgrade_button.disabled = true
 
 
 func _on_round_updated(new_round_number):
@@ -136,6 +141,12 @@ func _on_FastButton_toggled(button_pressed):
 	else:
 		Engine.set_time_scale(1.0)
 		$HUD/SpeedControls/FastButton.modulate = Color("646464")
+
+
+func _on_UpgradeButton_pressed() -> void:
+	if get_parent().money >= current_tower.next_upgrade_price:
+		get_parent().add_money(-1 * current_tower.next_upgrade_price)
+		current_tower.upgrade()
 
 
 func _on_SellButton_pressed() -> void:

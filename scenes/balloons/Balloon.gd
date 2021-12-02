@@ -16,6 +16,8 @@ var is_child := false
 var is_popped := false
 
 func _ready() -> void:
+	$AudioStreamPlayer.connect("finished", self, "_on_audio_finished")
+	
 	color = GameData.balloon_data[type]["color"]
 	speed = GameData.balloon_data[type]["speed"]
 	value = GameData.balloon_data[type]["value"]
@@ -54,7 +56,9 @@ func pop() -> void:
 	is_popped = true
 	if child_type != "":
 		create_child_balloon()
-	clear_balloon()
+	$AudioStreamPlayer.play()
+	hide()
+	$Area2D/CollisionShape2D.set_deferred("disabled", true)
 
 
 func create_child_balloon() -> void:
@@ -83,6 +87,8 @@ func _on_ChildSpawnEnablePeriodTimer_timeout() -> void:
 		get_node("Area2D/CollisionShape2D").disabled = false
 
 
+func _on_audio_finished() -> void:
+	clear_balloon()
 
 
 

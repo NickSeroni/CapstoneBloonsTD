@@ -7,6 +7,8 @@ func _ready() -> void:
 	$Panel/VBoxContainer/Button.connect("pressed", self, "_on_ExitToMainButton_pressed")
 	$Panel/VBoxContainer/Button2.connect("pressed", self, "_on_QuitButton_pressed")
 	
+	get_tree().paused = true
+	
 	if is_loss:
 		$Panel/MarginContainer/CenterContainer/Label.text = "Game Over"
 	else:

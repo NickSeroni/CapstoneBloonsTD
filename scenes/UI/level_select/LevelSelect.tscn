@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/UI/level_select/LevelSelect.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/2x/arrowLeft.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/2x/exitLeft.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/icons/Game icons (base)/PNG/White/2x/arrowRight.png" type="Texture" id=4]
 
 [node name="LevelSelect" type="Control"]
 anchor_right = 1.0
@@ -34,6 +36,36 @@ __meta__ = {
 self_modulate = Color( 0.282353, 0.611765, 1, 1 )
 margin_left = 10.0
 margin_top = 10.0
+rect_scale = Vector2( 0.9, 0.9 )
+rect_pivot_offset = Vector2( 56, 53 )
+icon = ExtResource( 3 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextPage" type="Button" parent="."]
+self_modulate = Color( 0.282353, 0.611765, 1, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -112.0
+margin_top = -106.0
+rect_scale = Vector2( 0.9, 0.9 )
+rect_pivot_offset = Vector2( 56, 53 )
+icon = ExtResource( 4 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevPage" type="Button" parent="."]
+self_modulate = Color( 0.282353, 0.611765, 1, 1 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -106.0
+margin_right = 112.0
 rect_scale = Vector2( 0.9, 0.9 )
 rect_pivot_offset = Vector2( 56, 53 )
 icon = ExtResource( 2 )

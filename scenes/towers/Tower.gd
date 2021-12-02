@@ -15,6 +15,9 @@ var shot_type : String
 var bullet_speed : int
 var bullet_pen: int
 
+var next_upgrade_price: int
+var next_tier_available := true
+
 var built : bool
 
 # Combat
@@ -48,6 +51,10 @@ func _ready() -> void:
 	bullet_speed = GameData.tower_data[type]["bullet_speed"]
 	bullet_pen = GameData.tower_data[type]["pen"]
 	tier = GameData.tower_data[type]["tier"]
+	print(tier)
+	
+	if GameData.tower_tiers[type].has(tier + 1):
+		next_upgrade_price = GameData.tower_tiers[type][tier + 1]["price"]
 	
 	if shot_type != "":
 		bullet = load(shot_type)
@@ -123,6 +130,33 @@ func shoot() -> void:
 	fire_rate_timer.start()
 	
 	#print(name + " shot at " + target.name)
+
+
+func upgrade() -> void:
+	if GameData.tower_tiers.has(type):
+		if GameData.tower_tiers[type].has(tier + 1):
+			tier += 1
+			
+			var data = GameData.tower_tiers[type][tier]
+			
+			rof = data["rof"]
+			fire_rate_timer.wait_time = rof
+			radius = data["radius"]
+			sell_price += (data["price"] - 50)
+			bullet_pen = data["pen"]
+			
+			var scaling = radius / 256.0
+			range_texture.scale = Vector2(scaling, scaling)
+			
+			if !GameData.tower_tiers[type].has(tier + 1):
+				next_tier_available = false
+			
+			emit_signal("stats_changed", self)
+			
+		else:
+			next_tier_available = false
+	else:
+		next_tier_available = false
 
 
 # Enables tower GUI on mouse click

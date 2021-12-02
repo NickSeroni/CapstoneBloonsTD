@@ -27,7 +27,8 @@ func load_data() -> void:
 		var data = parse_json(file.get_as_text())
 		file.close()
 		if typeof(data) == TYPE_DICTIONARY:
-			GameData.levelDict = data
+			for i in data.keys():
+				GameData.levelDict[i]["completed"] = data[i]["completed"]
 		else:
 			printerr("Corrupt data load!")
 	else:
